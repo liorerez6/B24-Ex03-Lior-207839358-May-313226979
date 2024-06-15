@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-internal class Garage
+public class Garage
 {
     private Dictionary<string, Vehicle> m_VehiclesInGarage;
 
@@ -34,6 +34,23 @@ internal class Garage
     {
         List<string> list = null; //clone licese lise
         //sotr list
+
+        return list;
+    }
+
+    public List<string> SortVehiclesByRepairStatus(int i_RepairStatus)
+    {
+        List<string> list = new List<string>();
+        Enums.ERepairStatus sortDelim = (Enums.ERepairStatus)i_RepairStatus;
+
+        foreach(string license in m_VehiclesInGarage.Keys) 
+        {
+            if (m_VehiclesInGarage[license].RepairStatus == sortDelim)
+            {
+
+                list.Add(license);
+            }
+        }
 
         return list;
     }

@@ -1,19 +1,14 @@
-﻿using Ex03.GarageLogic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-internal class Vehicle
+public class Vehicle
 {
     //Variables
     private string m_ModelName;
     private string m_LicenseNumber;
     private float m_EnergyPercentage;
-    private List<Wheel> m_Wheels;       //maybe Wheel should be a nested class/ struct
     private Owner m_OwnerDetails;
     private Enums.ERepairStatus m_VehicleRepairStatus = Enums.ERepairStatus.UnderRepair;
-
-    //private string m_NameOfOwner;
-    //private string m_PhoneNumberOfOwner;
 
     //should decide if: keep as a nested class or 2 variable inside vehicle
     private class Owner
@@ -67,6 +62,21 @@ internal class Vehicle
         set { m_EnergyPercentage = value; }
     }
 
+    public void UpdateOwnerDetails(string i_Name, string i_Phone) 
+    {
+        m_OwnerDetails.Name = i_Name;
+        m_OwnerDetails.Phone = i_Phone;
+    }
+
     //METHODS
+    public virtual void InitializeAttrubuteList(List<string> i_Attributes)
+    {
+        
+    }
+
+    public virtual void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes)
+    {
+
+    }
 
 }

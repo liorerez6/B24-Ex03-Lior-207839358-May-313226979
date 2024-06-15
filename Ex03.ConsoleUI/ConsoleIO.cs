@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-//new note
-
 internal class ConsoleIO
 {
     //private string getInputFromUser()
@@ -20,6 +18,14 @@ internal class ConsoleIO
 
     //    return getInputFromUser();
     //}
+
+    public string DisplayMessage(string i_Message)
+    {
+        Console.WriteLine($"Please enter {i_Message}:");
+        string userInput = Console.ReadLine();
+
+        return userInput;
+    }
 
     public string GetOwnerName()
     {
@@ -90,7 +96,7 @@ internal class ConsoleIO
         }
     }
 
-    public int GetRepairStatusForSorting()
+    public int GetRepairStatus()
     {
         Console.WriteLine("Please choose a vehicle repair status:");
         Console.WriteLine("1. Under Repair");
@@ -116,7 +122,7 @@ internal class ConsoleIO
         return userRequestedToSort;
     }
 
-    public int DisplayVehicleTypesOptions()
+    public string DisplayVehicleTypesOptions()
     {
         Console.WriteLine("Please choose a vehicle type:");
         Console.WriteLine("1. FuelCar");
@@ -126,9 +132,9 @@ internal class ConsoleIO
         Console.WriteLine("5. Truck");
 
         string getTypeString = Console.ReadLine();
-        int getType = int.Parse(getTypeString);
+        //int getType = int.Parse(getTypeString);
 
-        return getType;
+        return getTypeString;
     }
 
     public void VehicleIsAlreadyInGarageMessage()

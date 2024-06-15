@@ -1,7 +1,6 @@
-﻿using Ex03.GarageLogic;
-using System;
+﻿using System;
 
-internal class VehicleTypesCreator
+public class VehicleTypesCreator
 {
     private enum EVehicleTypes
     {
@@ -12,7 +11,7 @@ internal class VehicleTypesCreator
         Truck
     }
 
-    public Vehicle CreateNewVehicle(string i_VehicleType)
+    public static Vehicle CreateNewVehicle(string i_VehicleType)
     {
         Vehicle vehicle = null;
 

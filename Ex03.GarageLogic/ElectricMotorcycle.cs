@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ex03.GarageLogic
+internal class ElectricMotorcycle : Vehicle
 {
-    internal class ElectricMotorcycle
-    {
-    }
+    private List<Wheel> m_Wheels;
+
 }
+

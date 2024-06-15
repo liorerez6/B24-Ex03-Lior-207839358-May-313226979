@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Generic; 
 
 internal class ConsoleUserInterface
 {
     ConsoleIO m_ConsoleIOMessages = new ConsoleIO();
+    Garage m_Garage = new Garage();
 
     //METHODS
     public void DisplayMenuChoisesToUser()
@@ -40,7 +41,7 @@ internal class ConsoleUserInterface
     private void addVehicleInGarageRequest()
     {
         string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
-        bool isAlreadyInGarage = false; //IsVehicleAlreadyInGarage(getLicenseNumber);
+        bool isAlreadyInGarage = false; // IsVehicleAlreadyInGarage(getLicenseNumber);
 
         if (isAlreadyInGarage)
         {
@@ -48,9 +49,46 @@ internal class ConsoleUserInterface
         }
         else
         {
-            //get information and create one
+            createNewVehicleForGarage();
+        }
+    }
+
+    private void createNewVehicleForGarage()
+    {
+        string getTypeOfVehicle = m_ConsoleIOMessages.DisplayVehicleTypesOptions();
+        Vehicle vehicle = VehicleTypesCreator.CreateNewVehicle(getTypeOfVehicle);
+
+        initializeVehicleDetails(vehicle);
+
+        List<string> attributes = null;
+        vehicle.InitializeAttrubuteList(attributes);
+
+        Dictionary<string, string> getAttributes = getInfoFromUserRegadingVehicle(attributes);
+        vehicle.InitializeAttributesOfVehicle(getAttributes);
+    }
+
+    private Dictionary<string, string> getInfoFromUserRegadingVehicle(List<string> i_Atttibutes)
+    {
+        Dictionary<string, string> additionalSpecificInfoAboutVehicle = new Dictionary<string, string>();
+
+        foreach (string attribute in i_Atttibutes)
+        {
+            string userInput =  m_ConsoleIOMessages.DisplayMessage(attribute);
+            additionalSpecificInfoAboutVehicle.Add(attribute, userInput);
         }
 
+        return additionalSpecificInfoAboutVehicle;
+    }
+
+    private void initializeVehicleDetails(Vehicle i_Vehicle)
+    {
+        string getOwnerName = m_ConsoleIOMessages.GetOwnerName();
+        string getOwnerPhoneNumber = m_ConsoleIOMessages.GetOwnerPhoneNumber();
+
+        i_Vehicle.UpdateOwnerDetails(getOwnerName, getOwnerPhoneNumber);
+        i_Vehicle.LicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
+        //i_Vehicle.EnergyPercentage = m_ConsoleIOMessages.  ();
+        //i_Vehicle.Model = m_ConsoleIOMessages.  ();
     }
 
     private void displayVehiclesInGarageDetails()
@@ -60,7 +98,8 @@ internal class ConsoleUserInterface
 
         if (isRequestedToSort)
         {
-            int sortByRepairStatus = m_ConsoleIOMessages.GetRepairStatusForSorting();
+            int sortByRepairStatus = m_ConsoleIOMessages.GetRepairStatus();
+            
             //getGarageDetails = //get from logic sorted 
         }
         else
@@ -74,8 +113,10 @@ internal class ConsoleUserInterface
     private void changeVehicleRepairStatus()
     {
         //display message
+        string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
+
         //sent to logic datails
-        int getRepairChoise = m_ConsoleIOMessages.GetRepairStatusForSorting();
+        int getRepairChoise = m_ConsoleIOMessages.GetRepairStatus();
 
         switch (getRepairChoise)
         {
