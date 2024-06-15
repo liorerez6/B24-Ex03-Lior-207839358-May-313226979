@@ -2,8 +2,12 @@
 
 namespace Ex03.ConsoleUI
 {
-    internal class ValueOutOfRangeException : Exception
-    {
 
+    namespace Ex03.ConsoleUI
+    {
+        internal class ValueOutOfRangeException : Exception
+        {
+
+        }
     }
 }

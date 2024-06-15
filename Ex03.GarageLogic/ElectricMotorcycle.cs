@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-internal class ElectricMotorcycle : Vehicle
+namespace Ex03.GameLogic
 {
-    private List<Wheel> m_Wheels;
+    internal class ElectricMotorcycle : Vehicle
+    {
+        private List<Wheel> m_Wheels;
+
+    }
 
 }
 
