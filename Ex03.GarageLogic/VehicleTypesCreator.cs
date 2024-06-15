@@ -18,6 +18,7 @@ namespace Ex03.GameLogic
             Vehicle vehicle = null;
 
             if (Enum.TryParse(i_VehicleType, out EVehicleTypes getType))
+                getType--;
             {
                 switch (getType)
                 {

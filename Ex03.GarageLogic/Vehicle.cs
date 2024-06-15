@@ -10,7 +10,7 @@ namespace Ex03.GameLogic
         private string m_ModelName;
         private string m_LicenseNumber;
         private float m_EnergyPercentage;
-        private Owner m_OwnerDetails;
+        private Owner m_OwnerDetails = new Owner();
         private ERepairStatus m_VehicleRepairStatus = ERepairStatus.UnderRepair;
 
         //should decide if: keep as a nested class or 2 variable inside vehicle
@@ -67,14 +67,16 @@ namespace Ex03.GameLogic
 
         public void UpdateOwnerDetails(string i_Name, string i_Phone)
         {
+
             m_OwnerDetails.Name = i_Name;
             m_OwnerDetails.Phone = i_Phone;
         }
 
         //METHODS
-        public virtual void InitializeAttrubuteList(List<string> i_Attributes)
+        public virtual List<string> InitializeAttrubuteList()
         {
-
+            List<string> list = new List<string>();
+            return list;
         }
 
         public virtual void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes)

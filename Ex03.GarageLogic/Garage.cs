@@ -6,7 +6,7 @@ namespace Ex03.GameLogic
 {
     public class Garage
     {
-        private Dictionary<string, Vehicle> m_VehiclesInGarage;
+        private Dictionary<string, Vehicle> m_VehiclesInGarage = new Dictionary<string, Vehicle>();
 
         public Dictionary<string, Vehicle> VehiclesInGarage
         {

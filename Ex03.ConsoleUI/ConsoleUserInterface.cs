@@ -67,8 +67,8 @@ namespace Ex03.ConsoleUI
 
             initializeVehicleDetails(vehicle);
 
-            List<string> attributes = null;
-            vehicle.InitializeAttrubuteList(attributes);
+            List<string> attributes = vehicle.InitializeAttrubuteList();
+
 
             Dictionary<string, string> getAttributes = getInfoFromUserRegadingVehicle(attributes);
             vehicle.InitializeAttributesOfVehicle(getAttributes);
@@ -95,7 +95,7 @@ namespace Ex03.ConsoleUI
             string getOwnerPhoneNumber = m_ConsoleIOMessages.GetOwnerPhoneNumber();
 
             i_Vehicle.UpdateOwnerDetails(getOwnerName, getOwnerPhoneNumber);
-            i_Vehicle.LicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
+            i_Vehicle.LicenseNumber = m_ConsoleIOMessages.GetLicenseNumber(); // already asked that
             //i_Vehicle.EnergyPercentage = m_ConsoleIOMessages.  ();
             //i_Vehicle.Model = m_ConsoleIOMessages.  ();
         }

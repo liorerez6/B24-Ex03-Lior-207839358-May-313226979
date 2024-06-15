@@ -31,9 +31,9 @@ namespace Ex03.GameLogic
             m_BatteryTimeLeft = int.Parse(i_GetAttributes["Battery time left"]);
         }
 
-        public override void InitializeAttrubuteList(List<string> i_Attributes)
+        public override List<string> InitializeAttrubuteList()
         {
-            i_Attributes = new List<string>()
+            List<string> i_Attributes = new List<string>()
         {
             "Car color",
             "Manufacturer name",
@@ -41,6 +41,7 @@ namespace Ex03.GameLogic
             "Current air pressure",
             "Number of doors",
         };
+            return i_Attributes;
         }
 
         //maybe should find 
