@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-internal class ConsoleIO
+public class ConsoleIO
 {
     //private string getInputFromUser()
     //{
@@ -21,6 +21,7 @@ internal class ConsoleIO
 
     public string DisplayMessage(string i_Message)
     {
+        Console.Clear();
         Console.WriteLine($"Please enter {i_Message}:");
         string userInput = Console.ReadLine();
 
@@ -29,6 +30,7 @@ internal class ConsoleIO
 
     public string GetAmountOfTimeToCharge()
     {
+        Console.Clear();
         Console.WriteLine("Please enter the amount of time to charge:");
         string getAmount = Console.ReadLine();
 
@@ -37,6 +39,7 @@ internal class ConsoleIO
 
     public string GetFuelAmount()
     {
+        Console.Clear();
         Console.WriteLine("Please enter the amount of fuel:");
         string getAmount = Console.ReadLine();
 
@@ -45,6 +48,7 @@ internal class ConsoleIO
 
     public string GetOwnerName()
     {
+        Console.Clear();
         Console.WriteLine("Please enter your name:");
         string getName = Console.ReadLine();
 
@@ -53,6 +57,7 @@ internal class ConsoleIO
 
     public string GetFuelType()
     {
+        Console.Clear();
         Console.WriteLine("Please enter the fuel type of the vehicle:");
         string getFuelType = Console.ReadLine();
 
@@ -61,6 +66,7 @@ internal class ConsoleIO
 
     public string GetLicenseNumber()
     {
+        Console.Clear();
         Console.WriteLine("Please enter your license number:");
         string getLicenseNumber = Console.ReadLine();
 
@@ -69,6 +75,7 @@ internal class ConsoleIO
 
     public string GetVehicleModelType()
     {
+        Console.Clear();
         Console.WriteLine("Please enter the model type o:");
         string getModelType = Console.ReadLine();
 
@@ -77,6 +84,7 @@ internal class ConsoleIO
 
     public string GetOwnerPhoneNumber()
     {
+        Console.Clear();
         Console.WriteLine("Please enter your phone number:");
         string getPhoneNumber = Console.ReadLine();
 
@@ -85,6 +93,7 @@ internal class ConsoleIO
 
     public int GetAmountOfAirToInflate()
     {
+        Console.Clear();
         Console.WriteLine("Please type the amount of air to inflate:");
         string getInput = Console.ReadLine();
 
@@ -95,6 +104,7 @@ internal class ConsoleIO
 
     public int GetAmountOfElectricityToCharge()
     {
+        Console.Clear();
         Console.WriteLine("Please type the amount of air to inflate:");
         string getInput = Console.ReadLine();
 
@@ -106,6 +116,7 @@ internal class ConsoleIO
     //maybe should be display a list, any list
     public void DisplayVehiclesInGarage(List<string> i_VehiclesInGarage)
     {
+        Console.Clear();
         foreach (string vehicleDetails in i_VehiclesInGarage)
         {
             Console.Write(vehicleDetails);
@@ -114,6 +125,7 @@ internal class ConsoleIO
 
     public void DisplayVehicleDetails(Dictionary<string, string> i_VehiclesDetails)
     {
+        Console.Clear();
         foreach (string vehicleDetails in i_VehiclesDetails.Keys)
         {
             Console.WriteLine($"{vehicleDetails}: ");
@@ -123,6 +135,7 @@ internal class ConsoleIO
 
     public int GetRepairStatus()
     {
+        Console.Clear();
         Console.WriteLine("Please choose a vehicle repair status:");
         Console.WriteLine("1. Under Repair");
         Console.WriteLine("2. Repaired, not payed");
@@ -136,6 +149,7 @@ internal class ConsoleIO
 
     public bool AskIfUserWantToSortVehicleByRepairStatus()
     {
+        Console.Clear();
         Console.WriteLine("Do you want to display vehicles sorted by a repair status?");
         Console.WriteLine("1. Yes");
         Console.WriteLine("2. No");
@@ -149,6 +163,7 @@ internal class ConsoleIO
 
     public string DisplayVehicleTypesOptions()
     {
+        Console.Clear();
         Console.WriteLine("Please choose a vehicle type:");
         Console.WriteLine("1. FuelCar");
         Console.WriteLine("2. ElectricCar");
@@ -164,17 +179,18 @@ internal class ConsoleIO
 
     public void VehicleIsAlreadyInGarageMessage()
     {
+        Console.Clear();
         Console.WriteLine("This vehicle is already in garage, under repair.");
     }
 
     public int DisplayGarageSystemOptions()
     {
+        Console.Clear();
         bool isValidInput = false;
         int choiseNumber = 0;
 
         while (isValidInput == false)
         {
-            Console.Clear();
             Console.WriteLine("Garage Management System");
             Console.WriteLine("########################");
             Console.WriteLine("Please choose which action you want:");
@@ -188,6 +204,8 @@ internal class ConsoleIO
 
             string getInput = Console.ReadLine();
             isValidInput = int.TryParse(getInput, out choiseNumber);
+
+            Console.Clear();
         }
 
         return choiseNumber;

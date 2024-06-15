@@ -1,11 +1,9 @@
-﻿namespace Ex03.ConsoleUI
+﻿
+public class Program
 {
-    class Program
+    public static void Main()
     {
-        public static void Main()
-        {
-            ConsoleUI consoleUI = new ConsoleUI();
-            consoleUI.Run();
-        }
+        ConsoleUserInterface consoleUI = new ConsoleUserInterface();
+        consoleUI.DisplayMenuChoisesToUser();
     }
 }
