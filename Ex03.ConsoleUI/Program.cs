@@ -1,14 +1,12 @@
-﻿
-namespace Ex03.ConsoleUI
+﻿namespace Ex03.ConsoleUI
 {
-    public class Program
-    {
 
-   
+    class Program
+    {
         public static void Main()
         {
-            
+            ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface();
+            consoleUserInterface.DisplayMenuChoisesToUser();
         }
     }
 }
-
