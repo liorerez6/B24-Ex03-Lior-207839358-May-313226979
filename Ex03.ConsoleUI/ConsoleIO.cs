@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+//new note
+
 internal class ConsoleIO
 {
     //private string getInputFromUser()
