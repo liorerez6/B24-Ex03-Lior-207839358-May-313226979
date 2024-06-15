@@ -1,12 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Ex03.GarageLogic
+internal class Wheel
 {
-    public class Wheel
+    private string m_ManufacturerName;
+    private float r_MaxAirPressureByManufacturer;
+    private float m_CurrentAirPressure;
+
+    //CTOR
+    public Wheel(string i_ManufacturerName, float i_MaxAirPressureByManufacturer, float i_CurrentAirPressure)
     {
+        m_ManufacturerName = i_ManufacturerName;
+        r_MaxAirPressureByManufacturer = i_MaxAirPressureByManufacturer;
+        m_CurrentAirPressure = i_CurrentAirPressure;
+    }
+
+    //METHODS
+    private void inflatingWheel(float i_AirAmountToInflate)
+    {
+
     }
 }

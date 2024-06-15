@@ -1,8 +1,16 @@
 ﻿using System;
 
-
-internal class Enum
+public class Enums
 {
+    //public enum EVehicleTypes
+    //{
+    //    FuelCar,
+    //    ElectricCar,
+    //    FuelMotorcycle,
+    //    ElectricMotorcycle,
+    //    Truck
+    //}
+
     public enum ETypeOfFuel
     {
         Soler,
@@ -33,7 +41,4 @@ internal class Enum
         AA,
         B1
     }
-
-
-
 }

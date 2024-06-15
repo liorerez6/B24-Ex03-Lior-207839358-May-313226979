@@ -40,10 +40,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ElectricCar.cs" />
-    <Compile Include="Enium.cs" />
-    <Compile Include="FueledCar.cs" />
+    <Compile Include="ElectricMotorcycle.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="FuelCar.cs" />
+    <Compile Include="FuelMotorcycle.cs" />
     <Compile Include="Garage.cs" />
+    <Compile Include="Truck.cs" />
     <Compile Include="Vehicle.cs" />
+    <Compile Include="VehicleTypesCreator.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

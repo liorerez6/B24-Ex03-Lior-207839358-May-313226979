@@ -1,118 +1,72 @@
-﻿using System;
+﻿using Ex03.GarageLogic;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Ex03.GarageLogic
+internal class Vehicle
 {
-    public class Vehicle
+    //Variables
+    private string m_ModelName;
+    private string m_LicenseNumber;
+    private float m_EnergyPercentage;
+    private List<Wheel> m_Wheels;       //maybe Wheel should be a nested class/ struct
+    private Owner m_OwnerDetails;
+    private Enums.ERepairStatus m_VehicleRepairStatus = Enums.ERepairStatus.UnderRepair;
+
+    //private string m_NameOfOwner;
+    //private string m_PhoneNumberOfOwner;
+
+    //should decide if: keep as a nested class or 2 variable inside vehicle
+    private class Owner
     {
-        private string M_ModelName;
-        private string m_LicenseNumber;
-        private float m_EnergyLeftPercentage;
-        private string m_OwnerName;
-        private string m_OwnerPhone;
-        List<Wheel> Wheels;
+        private string m_NameOfOwner;
+        private string m_PhoneNumberOfOwner;
 
-        List<string> m_RequiredAttributesForVehicle = new List<string>()
-        {
-            "Model Name",
-            "Energy Left Percentage",
-            "Owner phone",
-            "Owner Name",
-            "Owner Phone"
-        };
+        public Owner() { }
 
-        static Vehicle()
+        public Owner(string i_NameOfOwner, string i_PhoneNumberOfOwner)
         {
-
-        }
-            
-        private static List<string> m_VehicleTypes = new List<string>
-        {
-            "Truck",
-            "Car",
-            "Electric Car",
-            "Motorcycle",
-            "Electric Motorcycle"
-        };
-
-        public static List<string> VehicleTypesInGarage
-        {
-            get { return m_VehicleTypes; }
+            m_NameOfOwner = i_NameOfOwner;
+            m_PhoneNumberOfOwner = i_PhoneNumberOfOwner;
         }
 
-        public static Vehicle CreateVehicle(string type)
+        public string Name
         {
-            Vehicle vehicle = null;
-
-            switch (type)
-            {
-                case "Motorcycle":
-                    //vehicle = new Motorcycle();
-                    break;
-                case "Electric Motorcycle":
-                    //vehicle = new ElectricMotorcycle();
-                    break;
-                case "Fueled Car":
-                    vehicle = new FueledCar();
-                    break;
-                case "Electric Car":
-                    vehicle = new ElectricCar();
-                    break;
-                case "Truck":
-                    //vehicle = new Truck();
-                    break;
-                default:
-                    throw new ArgumentException("Invalid vehicle type");
-            }
-
-            return vehicle;
+            get { return (string)m_NameOfOwner; }
+            set { m_NameOfOwner = value; }
         }
 
-        public virtual List<string> initlizer()
+        public string Phone
         {
-            return m_RequiredAttributesForVehicle;
-        }
-
-        public virtual List<string> GetRequiredData()
-        {
-            return m_RequiredAttributesForVehicle;
-        }
-
-        public virtual void UpdateAttributes(Dictionary<string,string> i_Attributes)
-        {
-
-        }
-
-        public string ModelName
-        {
-            get { return M_ModelName; }
-            set { M_ModelName = value; }
-        }
-
-        public string LicenseNumber
-        {
-            get { return m_LicenseNumber; }
-            set { m_LicenseNumber = value; }
-        }
-
-        public float EnergyLeftPercentage
-        {
-            get { return m_EnergyLeftPercentage; }
-            set { m_EnergyLeftPercentage = value; }
+            get { return (string)m_PhoneNumberOfOwner; }
+            set { m_PhoneNumberOfOwner = value; }
         }
     }
 
-    public enum FuelType
+    //Properties
+    public string LicenseNumber
     {
-        SOLER,
-        OCTAN95,
-        OCTAN96,
-        OCTAN98
+        get { return m_LicenseNumber; }
+        set { m_LicenseNumber = value; }
     }
 
+    public Enums.ERepairStatus RepairStatus
+    {
+        get { return m_VehicleRepairStatus; }
+        set { m_VehicleRepairStatus = value; }
+    }
 
+    public string Model
+    {
+        get { return m_ModelName; }
+        set { m_ModelName = value; }
+    }
+
+    public float EnergyPercentage
+    {
+        get { return m_EnergyPercentage; }
+        set { m_EnergyPercentage = value; }
+    }
+
+    //METHODS
 
 }
