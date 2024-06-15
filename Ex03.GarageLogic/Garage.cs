@@ -8,32 +8,14 @@ namespace Ex03.GarageLogic
 {
     public class Garage
     {
-        private Dictionary<string, GarageEntry> m_Vehicles; // <string,vehicle>
-        private List<string> m_RequiredAttributesForGarage;
+        private Dictionary<string, Vehicle> m_Vehicles; // <string,vehicle>
         
 
         public Garage() /// bli owner Name
         {
-            m_Vehicles = new Dictionary<string, GarageEntry>();
-            m_RequiredAttributesForGarage = new List<string>()
-        {
-            "Owner Name",
-            "Owner Phone"
-        };
-
-            m_NumberOfAttributes = m_RequiredAttributesForGarage.Count;
+            m_Vehicles = new Dictionary<string, Vehicle>();    
         }
 
-        
-
-        public List<string> GetRequiredData()
-        {
-
-
-
-            return m_RequiredAttributesForGarage;
-
-        }
 
         public void AddVehicle(Vehicle vehicle, Dictionary<string,string> i_InformationFromUser)
         {

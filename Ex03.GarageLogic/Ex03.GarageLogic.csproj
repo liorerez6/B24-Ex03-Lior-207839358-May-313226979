@@ -39,15 +39,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Car.cs" />
     <Compile Include="ElectricCar.cs" />
-    <Compile Include="ElectricEngine.cs" />
+    <Compile Include="Enium.cs" />
     <Compile Include="FueledCar.cs" />
-    <Compile Include="FuelEngine.cs" />
     <Compile Include="Garage.cs" />
-    <Compile Include="GarageEntry.cs" />
     <Compile Include="Vehicle.cs" />
-    <Compile Include="VehicleFactory.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

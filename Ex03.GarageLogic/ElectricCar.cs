@@ -6,29 +6,44 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    public class ElectricCar : Car
+    public class ElectricCar : Vehicle
     {
-        private ElectricEngine m_Engine = new ElectricEngine();
-       
+        
+        private float m_BatteryTimeLeft;
+        private float m_MaxBatteryTime = 3.5f;
+        int m_NumberOfDoors;
+
+        List<string> m_RequiredAttributesForElectricCar = new List<string>()
+        {
+            "Battery Time Left",
+            "Car Color",
+            "Number Of Doors",
+            "Wheel 1 Manufactor:",
+            "Wheel 1 Tyre Pressure:",
+            "Wheel 2 Manufactor:",
+            "Wheel 2 Tyre Pressure:",
+            "Wheel 3 Manufactor:",
+            "Wheel 3 Tyre Pressure:",
+            "Wheel 4 Manufactor:",
+            "Wheel 4 Tyre Pressure:",
+        };
+
+        public void ChargeBattery(float i_Hours) // TO DO
+        {
+            m_BatteryTimeLeft += i_Hours;
+        }
+
         public override List<string> GetRequiredData()
         {
             List<string> requiredData = base.GetRequiredData();
-            List<string> dataForElectricEngine = m_Engine.GetRequiredData();
-            requiredData.AddRange(dataForElectricEngine);
+            requiredData.AddRange(m_RequiredAttributesForElectricCar);
 
             return requiredData;
         }
 
-
-
-
-        public override void UpdateAttributes(Dictionary<string,string> i_Attributes)
+        public override void UpdateAttributes(Dictionary<string, string> i_Attributes)
         {
             base.UpdateAttributes(i_Attributes);
-            m_battryLeft = ConsoleIO.GetBatteryLeft()
-            //adding the data for electric engine
-            List<string> dataForElectricEngine = m_Engine.GetRequiredData();
-            ///
         }
     }
 }

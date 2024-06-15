@@ -11,11 +11,10 @@ namespace Ex03.ConsoleUI
     internal class ConsoleUI
     {
         private Ex03.GarageLogic.Garage m_Garage = new GarageLogic.Garage();
-        private Ex03.GarageLogic.VehicleFactory m_VehicleFactory = new VehicleFactory();
 
         public void Run()
         {
-            List<string> supportedVehicales = m_VehicleFactory.VehicleTypesInGarage;
+            List<string> supportedVehicales = Vehicle.VehicleTypesInGarage;
 
 
             
@@ -38,7 +37,7 @@ namespace Ex03.ConsoleUI
                 //Vehicle vehicle = vehicle.CreateVehicle(typeOfCar)
                 
 
-                Vehicle vehicle = m_VehicleFactory.CreateVehicle(typeOfCar); // must be before data from the user about the Vehicle
+                Vehicle vehicle = Vehicle.CreateVehicle(typeOfCar); // must be before data from the user about the Vehicle
 
                // List<string> attributes = vehicle.Initilizer()
 
