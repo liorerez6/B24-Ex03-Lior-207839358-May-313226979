@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Enums;
 
 internal class ElectricCar : Vehicle
 {
@@ -9,7 +10,7 @@ internal class ElectricCar : Vehicle
     private List<Wheel> m_Wheels;
     private Enums.ECarColors m_CarColor;
     private int m_NumberOfDoors;
-    private int m_BatteryTimeLeft;
+    private float m_BatteryTimeLeft;
 
     //private List<string> m_i_Attributes;
 
@@ -40,5 +41,49 @@ internal class ElectricCar : Vehicle
         };
     }
 
+    //maybe should find 
+    public override void InflatingWheel()
+    {
+        foreach (Wheel wheel in m_Wheels)
+        {
+            wheel.CurrentAirPressure = k_MaxTiresPressure;
+        }
+    }
+
+    public override void FuelVehicle(string i_FuelType, string i_FualAmount)
+    {
+        //throw exception
+    }
+
+    public override void ChargeElectricVehicle(string i_TimeAmount)
+    {
+        float newTimeAmount = m_BatteryTimeLeft + float.Parse(i_TimeAmount);
+
+        if (newTimeAmount <= k_MaxTimeEngine)
+        {
+            m_BatteryTimeLeft = newTimeAmount;
+        }
+    }
+
+    public override Dictionary<string, string> DisplayDetails()
+    {
+        Dictionary<string, string> details = base.DisplayDetails();
+
+        details.Add("Car color", m_CarColor.ToString());
+        details.Add("Numbers of doors", m_NumberOfDoors.ToString());
+        details.Add("Battery time left", m_BatteryTimeLeft.ToString());
+        details.Add("Manufacture name", m_Wheels[0].ManufactureName);
+        details.Add("Maximun air pressure by manufacture", m_Wheels[0].MaxAirPressure.ToString());
+
+        char numOfWheel = '1';
+
+        foreach(Wheel wheel in m_Wheels)
+        {
+            details.Add(numOfWheel + " wheel air pressure", wheel.CurrentAirPressure.ToString());
+            numOfWheel++;
+        }
+
+        return details;
+    }
 }
 

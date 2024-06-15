@@ -62,7 +62,7 @@ public class Vehicle
         set { m_EnergyPercentage = value; }
     }
 
-    public void UpdateOwnerDetails(string i_Name, string i_Phone) 
+    public void UpdateOwnerDetails(string i_Name, string i_Phone)
     {
         m_OwnerDetails.Name = i_Name;
         m_OwnerDetails.Phone = i_Phone;
@@ -71,7 +71,7 @@ public class Vehicle
     //METHODS
     public virtual void InitializeAttrubuteList(List<string> i_Attributes)
     {
-        
+
     }
 
     public virtual void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes)
@@ -79,4 +79,33 @@ public class Vehicle
 
     }
 
+    public virtual void InflatingWheel()
+    {
+
+    }
+
+    public virtual void FuelVehicle(string i_FuelType, string i_FualAmount)
+    {
+
+    }
+
+    public virtual void ChargeElectricVehicle(string i_TimeAmount)
+    {
+
+    }
+
+
+    public virtual Dictionary<string, string> DisplayDetails()
+    {
+        Dictionary<string, string> details = new Dictionary<string, string>();
+
+        details.Add("License number", m_LicenseNumber);
+        details.Add("Owner's name", m_OwnerDetails.Name);
+        details.Add("Owner's phone number", m_OwnerDetails.Phone);
+        details.Add("Model name", m_ModelName);
+        details.Add("Energy percentage", m_EnergyPercentage.ToString());
+        details.Add("Vehicle repair status", m_VehicleRepairStatus.ToString());
+
+        return details;
+    }
 }

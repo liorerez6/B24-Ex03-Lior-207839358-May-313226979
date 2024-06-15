@@ -41,7 +41,7 @@ internal class ConsoleUserInterface
     private void addVehicleInGarageRequest()
     {
         string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
-        bool isAlreadyInGarage = false; // IsVehicleAlreadyInGarage(getLicenseNumber);
+        bool isAlreadyInGarage = m_Garage.IsVehicleAlreadyInGarage(getLicenseNumber);
 
         if (isAlreadyInGarage)
         {
@@ -65,6 +65,8 @@ internal class ConsoleUserInterface
 
         Dictionary<string, string> getAttributes = getInfoFromUserRegadingVehicle(attributes);
         vehicle.InitializeAttributesOfVehicle(getAttributes);
+
+        m_Garage.PutNewVehicleInGarage(vehicle);
     }
 
     private Dictionary<string, string> getInfoFromUserRegadingVehicle(List<string> i_Atttibutes)
@@ -99,12 +101,12 @@ internal class ConsoleUserInterface
         if (isRequestedToSort)
         {
             int sortByRepairStatus = m_ConsoleIOMessages.GetRepairStatus();
-            
-            //getGarageDetails = //get from logic sorted 
+
+            getGarageDetails = m_Garage.SortVehiclesByRepairStatus(sortByRepairStatus);
         }
         else
         {
-            //getGarageDetails = //get from logic not sorted 
+            getGarageDetails = m_Garage.ListOfVehicleLicenseNumbers;  
         }
 
         m_ConsoleIOMessages.DisplayVehiclesInGarage(getGarageDetails);
@@ -112,22 +114,19 @@ internal class ConsoleUserInterface
 
     private void changeVehicleRepairStatus()
     {
-        //display message
         string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
-
-        //sent to logic datails
         int getRepairChoise = m_ConsoleIOMessages.GetRepairStatus();
 
         switch (getRepairChoise)
         {
             case 1:
-                //Under Repair
+                m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Enums.ERepairStatus.UnderRepair;
                 break;
             case 2:
-                //Repaired, not payed
+                m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Enums.ERepairStatus.RepairedNotPayed;
                 break;
             case 3:
-                //Repaired and payed
+                m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Enums.ERepairStatus.RepairedAndPayed;
                 break;
             default:
                 //ERROR
@@ -139,26 +138,31 @@ internal class ConsoleUserInterface
     {
         string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
 
-        //send to logic
+        m_Garage.InflateVehicleWheels(getLicenseNumber);
     }
 
     private void fuelVehicle()
     {
         string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
         string getFuelType = m_ConsoleIOMessages.GetFuelType();
-        // continue
+        string getAmountOfFuel = m_ConsoleIOMessages.GetFuelAmount();
+
+        m_Garage.FuelVehicle(getLicenseNumber, getFuelType, getAmountOfFuel);
     }
 
     private void chargeElectricVehicle()
     {
-        //......
+        string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
+        string getAmountOfTimel = m_ConsoleIOMessages.GetAmountOfTimeToCharge();
+
+        m_Garage.ChargeElectricVehicle(getLicenseNumber, getAmountOfTimel);
     }
 
     private void displayFullDetailsOfVehicle()
     {
         string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
-        //display messages
-        ////get license number
+        Dictionary<string, string> details = m_Garage.DisplayVehicleDetails(getLicenseNumber);
 
+        m_ConsoleIOMessages.DisplayVehicleDetails(details);
     }
 }

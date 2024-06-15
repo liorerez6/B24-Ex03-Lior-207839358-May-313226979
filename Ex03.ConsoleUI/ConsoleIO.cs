@@ -27,6 +27,22 @@ internal class ConsoleIO
         return userInput;
     }
 
+    public string GetAmountOfTimeToCharge()
+    {
+        Console.WriteLine("Please enter the amount of time to charge:");
+        string getAmount = Console.ReadLine();
+
+        return getAmount;
+    }
+
+    public string GetFuelAmount()
+    {
+        Console.WriteLine("Please enter the amount of fuel:");
+        string getAmount = Console.ReadLine();
+
+        return getAmount;
+    }
+
     public string GetOwnerName()
     {
         Console.WriteLine("Please enter your name:");
@@ -92,7 +108,16 @@ internal class ConsoleIO
     {
         foreach (string vehicleDetails in i_VehiclesInGarage)
         {
-            Console.WriteLine($"{vehicleDetails}");
+            Console.Write(vehicleDetails);
+        }
+    }
+
+    public void DisplayVehicleDetails(Dictionary<string, string> i_VehiclesDetails)
+    {
+        foreach (string vehicleDetails in i_VehiclesDetails.Keys)
+        {
+            Console.WriteLine($"{vehicleDetails}: ");
+            Console.Write(i_VehiclesDetails[vehicleDetails]);
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 
 public class Garage
@@ -11,8 +12,13 @@ public class Garage
         get { return m_VehiclesInGarage; }
     }
 
+    public List<string> ListOfVehicleLicenseNumbers
+    {
+        get { return m_VehiclesInGarage.Keys.ToList(); }
+    }
+
     //METHODS
-    public void PutNewVehicleInGarageRequest(Vehicle i_Vehicle)
+    public void PutNewVehicleInGarage(Vehicle i_Vehicle)
     {
         m_VehiclesInGarage.Add(i_Vehicle.LicenseNumber, i_Vehicle);
     }
@@ -30,14 +36,6 @@ public class Garage
         return isVehicleAlreadyInGarage;
     }
 
-    public List<string> SortVehicleInGarageByRepairStatus(int i_RepairStatusNumber)
-    {
-        List<string> list = null; //clone licese lise
-        //sotr list
-
-        return list;
-    }
-
     public List<string> SortVehiclesByRepairStatus(int i_RepairStatus)
     {
         List<string> list = new List<string>();
@@ -47,12 +45,33 @@ public class Garage
         {
             if (m_VehiclesInGarage[license].RepairStatus == sortDelim)
             {
-
                 list.Add(license);
             }
         }
 
         return list;
+    }
+
+    public void InflateVehicleWheels(string i_LicenseNumber)
+    {
+        m_VehiclesInGarage[i_LicenseNumber].InflatingWheel();
+    }
+
+    public void FuelVehicle(string i_LicenseNumber, string i_FuelType, string i_FualAmount)
+    {
+        m_VehiclesInGarage[i_LicenseNumber].FuelVehicle(i_FuelType, i_FualAmount);
+    }
+
+    public void ChargeElectricVehicle(string i_LicenseNumber, string i_TimeAmount)
+    {
+        m_VehiclesInGarage[i_LicenseNumber].ChargeElectricVehicle(i_TimeAmount);
+    }
+
+    public Dictionary<string, string> DisplayVehicleDetails(string i_LicenseNumber)
+    {
+        Dictionary<string, string> details = m_VehiclesInGarage[i_LicenseNumber].DisplayDetails();
+
+        return details;
     }
 
     //public void ChangeVehicleRepairStatus(string i_LicenseNumber, int i_RepairStatus)
