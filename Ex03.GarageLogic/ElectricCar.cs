@@ -6,8 +6,8 @@ namespace Ex03.GameLogic
 {
     internal class ElectricCar : Vehicle
     {
-        const int k_MaxTiresPressure = 31;
-        const float k_MaxTimeEngine = 3.5F;
+        private const int k_MaxTiresPressure = 31;
+        private const float k_MaxTimeEngine = 3.5F;
 
         private List<Wheel> m_Wheels = new List<Wheel>();
         private Enums.ECarColors m_CarColor;
