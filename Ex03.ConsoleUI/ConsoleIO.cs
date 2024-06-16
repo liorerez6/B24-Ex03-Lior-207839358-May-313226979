@@ -72,10 +72,18 @@ namespace Ex03.ConsoleUI
 
         public string GetVehicleModelType()
         {
-            Console.WriteLine("Please enter the model type o:");
+            Console.WriteLine("Please enter the model type:");
             string getModelType = Console.ReadLine();
 
             return getModelType;
+        }
+
+        public string GetEnergyPercentage()
+        {
+            Console.WriteLine("Please enter the current energy percentage:");
+            string getPhoneNumber = Console.ReadLine();
+
+            return getPhoneNumber;
         }
 
         public string GetOwnerPhoneNumber()

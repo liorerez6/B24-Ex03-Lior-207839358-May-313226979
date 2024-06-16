@@ -56,16 +56,16 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                createNewVehicleForGarage();
+                createNewVehicleForGarage(getLicenseNumber);
             }
         }
 
-        private void createNewVehicleForGarage()
+        private void createNewVehicleForGarage(string i_LicenseNumber)
         {
             string getTypeOfVehicle = m_ConsoleIOMessages.DisplayVehicleTypesOptions();
             Vehicle vehicle = VehicleTypesCreator.CreateNewVehicle(getTypeOfVehicle);
 
-            initializeVehicleDetails(vehicle);
+            initializeVehicleDetails(vehicle, i_LicenseNumber);
 
             List<string> attributes = vehicle.InitializeAttrubuteList();
 
@@ -89,15 +89,14 @@ namespace Ex03.ConsoleUI
             return additionalSpecificInfoAboutVehicle;
         }
 
-        private void initializeVehicleDetails(Vehicle i_Vehicle)
+        private void initializeVehicleDetails(Vehicle i_Vehicle, string i_LicenseNumber)
         {
             string getOwnerName = m_ConsoleIOMessages.GetOwnerName();
             string getOwnerPhoneNumber = m_ConsoleIOMessages.GetOwnerPhoneNumber();
-
             i_Vehicle.UpdateOwnerDetails(getOwnerName, getOwnerPhoneNumber);
-            i_Vehicle.LicenseNumber = m_ConsoleIOMessages.GetLicenseNumber(); // already asked that
-            //i_Vehicle.EnergyPercentage = m_ConsoleIOMessages.  ();
-            //i_Vehicle.Model = m_ConsoleIOMessages.  ();
+            i_Vehicle.LicenseNumber = i_LicenseNumber;
+            i_Vehicle.EnergyPercentage = float.Parse(m_ConsoleIOMessages.GetEnergyPercentage());
+            i_Vehicle.Model = m_ConsoleIOMessages.GetVehicleModelType();
         }
 
         private void displayVehiclesInGarageDetails()

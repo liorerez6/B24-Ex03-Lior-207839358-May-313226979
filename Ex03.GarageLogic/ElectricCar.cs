@@ -9,19 +9,22 @@ namespace Ex03.GameLogic
         const int k_MaxTiresPressure = 31;
         const float k_MaxTimeEngine = 3.5F;
 
-        private List<Wheel> m_Wheels;
+        private List<Wheel> m_Wheels = new List<Wheel>();
         private Enums.ECarColors m_CarColor;
         private int m_NumberOfDoors;
         private float m_BatteryTimeLeft;
 
         //private List<string> m_i_Attributes;
 
+       
+
         //METHODS
         public override void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes)
         {
             Wheel wheel = new Wheel(i_GetAttributes["Manufacturer name"], k_MaxTiresPressure, i_GetAttributes["Current air pressure"]);
             m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
+            m_Wheels.Add(wheel); // need to corret because now every wheell have refernce to the same wheel. changing tire pressure in one
+                                 // will change it in all of them
             m_Wheels.Add(wheel);
             m_Wheels.Add(wheel);
             m_Wheels.Add(wheel);
@@ -36,10 +39,10 @@ namespace Ex03.GameLogic
             List<string> i_Attributes = new List<string>()
         {
             "Car color",
-            "Manufacturer name",
             "Battery time left",
-            "Current air pressure",
             "Number of doors",
+            "Current air pressure",  
+            "Manufacturer name"
         };
             return i_Attributes;
         }
