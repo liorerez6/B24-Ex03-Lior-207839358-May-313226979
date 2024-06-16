@@ -13,7 +13,7 @@ namespace Ex03.GameLogic
         private Enums.ETypeOfMotorcycleLicense m_License;
         private const int k_MaxTiresPressure = 33;
         private const float k_MaxTimeEngine = 2.5F;
-        private int volumeOfEngine;
+        private int m_VolumeOfEngine;
 
 
         public override void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes)
@@ -22,12 +22,9 @@ namespace Ex03.GameLogic
             m_Wheels.Add(wheel);
             m_Wheels.Add(wheel); // need to corret because now every wheell have refernce to the same wheel. changing tire pressure in one
                                  // will change it in all of them
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
 
-            //m_CarColor = (Enums.ECarColors)Enum.Parse(typeof(Enums.ECarColors), i_GetAttributes["Car color"]);
-            //m_NumberOfDoors = int.Parse(i_GetAttributes["Number of doors"]);
+            m_License = (Enums.ETypeOfMotorcycleLicense)Enum.Parse(typeof(Enums.ETypeOfMotorcycleLicense), i_GetAttributes["License type"]);
+            m_VolumeOfEngine = int.Parse(i_GetAttributes["Engine Volume"]);
             m_BatteryTimeLeft = int.Parse(i_GetAttributes["Battery time left"]);
         }
 
@@ -51,11 +48,11 @@ namespace Ex03.GameLogic
             Dictionary<string, string> details = base.DisplayDetails();
 
             details.Add("License type", m_License.ToString());
-            //details.Add("Numbers of doors", m_NumberOfDoors.ToString());
+            details.Add("Engine Volume", m_VolumeOfEngine.ToString());
             details.Add("Battery time left", m_BatteryTimeLeft.ToString());
             details.Add("Manufacture name", m_Wheels[0].ManufactureName);
             details.Add("Maximun air pressure by manufacture", m_Wheels[0].MaxAirPressure.ToString());
-
+            
             char numOfWheel = '1';
 
             foreach (Wheel wheel in m_Wheels)
