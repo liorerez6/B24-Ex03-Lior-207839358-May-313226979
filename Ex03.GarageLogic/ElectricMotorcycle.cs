@@ -4,34 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Ex03.GameLogic
 {
     internal class ElectricMotorcycle : Vehicle
     {
-        private List<Wheel> m_Wheels = new List<Wheel>();
-        private float m_BatteryTimeLeft;
-        private Enums.ETypeOfMotorcycleLicense m_License;
         private const int k_MaxTiresPressure = 33;
         private const float k_MaxTimeEngine = 2.5F;
+        private const int k_NumberOfWheels = 2;
+        private List<Wheel> m_Wheels = new List<Wheel>();
+        private float m_BatteryTimeLeft;
         private int m_VolumeOfEngine;
-
+        private ETypeOfMotorcycleLicense m_License;
 
         public override void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes)
         {
-            Wheel wheel = new Wheel(i_GetAttributes["Manufacturer name"], k_MaxTiresPressure, i_GetAttributes["Current air pressure"]);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel); // need to corret because now every wheell have refernce to the same wheel. changing tire pressure in one
-                                 // will change it in all of them
+            for (int i = 0; i < k_NumberOfWheels; i++)
+            {
+                Wheel wheel = new Wheel(i_GetAttributes["Manufacturer name"], k_MaxTiresPressure, i_GetAttributes["Current air pressure"]);
+                m_Wheels.Add(wheel);
+            }
 
-            m_License = (Enums.ETypeOfMotorcycleLicense)Enum.Parse(typeof(Enums.ETypeOfMotorcycleLicense), i_GetAttributes["License type"]);
+            LogicInputValidationCheck.IsInputIncludesDigitsInSpecificRange(i_GetAttributes["Battery time left"], "Battery time left", 0, k_MaxTimeEngine);
+
+            m_License = (ETypeOfMotorcycleLicense)Enum.Parse(typeof(ETypeOfMotorcycleLicense), i_GetAttributes["License type"]);
             m_VolumeOfEngine = int.Parse(i_GetAttributes["Engine Volume"]);
             m_BatteryTimeLeft = int.Parse(i_GetAttributes["Battery time left"]);                      
         }
 
         public override void FuelVehicle(string i_FuelType, string i_FualAmount)
         {
-            //throw exception
+            throw new Exception("Can't insert fuel to an electric car!");
         }
 
         public override void ChargeElectricVehicle(string i_TimeAmount)
@@ -41,6 +43,10 @@ namespace Ex03.GameLogic
             if (newTimeAmount <= k_MaxTimeEngine)
             {
                 m_BatteryTimeLeft = newTimeAmount;
+            }
+            else 
+            {
+                throw new ValueOutOfRangeException(0, k_MaxTimeEngine - m_BatteryTimeLeft, "Can't charge the requested amount");
             }
         }
 

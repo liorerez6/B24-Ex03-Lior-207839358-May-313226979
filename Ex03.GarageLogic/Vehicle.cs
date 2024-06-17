@@ -4,8 +4,38 @@ using static Ex03.GameLogic.Enums;
 
 namespace Ex03.GameLogic
 {
-    public class Vehicle
+    public abstract class Vehicle
     {
+        public enum ETypeOfFuel
+        {
+            Soler,
+            Octan95,
+            Octan96,
+            Octan98
+        }
+        public enum ERepairStatus
+        {
+            UnderRepair = 1,
+            RepairedNotPayed = 2,
+            RepairedAndPayed = 3
+        }
+
+        public enum ECarColors
+        {
+            Yellow,
+            White,
+            Red,
+            Black
+        }
+
+        public enum ETypeOfMotorcycleLicense
+        {
+            A,
+            A1,
+            AA,
+            B1
+        }
+
         //Variables
         private string m_ModelName;
         private string m_LicenseNumber;
@@ -47,7 +77,7 @@ namespace Ex03.GameLogic
             set { m_LicenseNumber = value; }
         }
 
-        public Enums.ERepairStatus RepairStatus
+        public ERepairStatus RepairStatus
         {
             get { return m_VehicleRepairStatus; }
             set { m_VehicleRepairStatus = value; }
@@ -65,6 +95,8 @@ namespace Ex03.GameLogic
             set { m_EnergyPercentage = value; }
         }
 
+        //METHODS
+
         public void UpdateOwnerDetails(string i_Name, string i_Phone)
         {
 
@@ -72,34 +104,22 @@ namespace Ex03.GameLogic
             m_OwnerDetails.Phone = i_Phone;
         }
 
-        //METHODS
         public virtual List<string> InitializeAttrubuteList()
         {
             List<string> list = new List<string>();
             return list;
         }
 
-        public virtual void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes)
-        {
-
-        }
-
-        public virtual void InflatingWheel()
-        {
-
-        }
-
-        public virtual void FuelVehicle(string i_FuelType, string i_FualAmount)
-        {
-
-        }
-
-        public virtual void ChargeElectricVehicle(string i_TimeAmount)
-        {
-
-        }
+        public abstract void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes);
 
 
+        public abstract void InflatingWheel();
+
+
+        public abstract void FuelVehicle(string i_FuelType, string i_FualAmount);
+
+        public abstract void ChargeElectricVehicle(string i_TimeAmount);
+       
         public virtual Dictionary<string, string> DisplayDetails()
         {
             Dictionary<string, string> details = new Dictionary<string, string>();

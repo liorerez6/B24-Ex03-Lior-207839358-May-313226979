@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using static Ex03.GameLogic.Enums;
 
 namespace Ex03.GameLogic
 {
     internal class Truck : Vehicle
     {
+        private const ETypeOfFuel k_TypeOfFuel = ETypeOfFuel.Soler;
         private const int k_NumberOfWheels = 12;
+        private const int k_MaxTiresPressure = 28;
+        private const float k_MaxFuelTank = 120F;
         private bool r_IsCarringToxicSubstances;
         private float m_CargoCapacity;
         private List<Wheel> m_Wheels = new List<Wheel>(k_NumberOfWheels);
-        const ETypeOfFuel k_TypeOfFuel = ETypeOfFuel.Soler;
-
-        private const int k_MaxTiresPressure = 28;
-        private const float k_MaxFuelTank = 120F;
         private float m_CurrentFuelAmount;
 
         public override void FuelVehicle(string i_FuelType, string i_FualAmount)
@@ -28,19 +26,24 @@ namespace Ex03.GameLogic
                 {
                     m_CurrentFuelAmount = newFuelAmount;
                 }
+                else
+                {
+                    throw new ValueOutOfRangeException(0, k_MaxFuelTank - m_CurrentFuelAmount, "Can't fuel truck with the requested amount");
+                }
             }
         }
 
         public override List<string> InitializeAttrubuteList()
         {
             List<string> i_Attributes = new List<string>()
-        {
-            "Cargo Capacity",
-            "Current Fuel Amount",
-            "Carring Toxic Substances",
-            "Current air pressure",
-            "Manufacturer name"
-        };
+            {
+                "Cargo Capacity",
+                "Current Fuel Amount",
+                "Is carring Toxic Substances",
+                "Current air pressure",
+                "Manufacturer name"
+            };
+
             return i_Attributes;
         }
 
@@ -52,8 +55,10 @@ namespace Ex03.GameLogic
                 m_Wheels.Add(wheel);
             }
 
+            LogicInputValidationCheck.CompareInputToStrings(i_GetAttributes["Is carring Toxic Substances"], "Is carring Toxic Substances", "yes", "no");
+
             m_CargoCapacity = int.Parse(i_GetAttributes["Cargo Capacity"]);
-            r_IsCarringToxicSubstances = bool.Parse(i_GetAttributes["Carring Toxic Substances"]); // 
+            r_IsCarringToxicSubstances = (i_GetAttributes["Is carring Toxic Substances"]).ToLower().Equals("yes");
             m_CurrentFuelAmount = int.Parse(i_GetAttributes["Current Fuel Amount"]);
         }
 
@@ -88,15 +93,15 @@ namespace Ex03.GameLogic
 
         public override void ChargeElectricVehicle(string i_TimeAmount)
         {
-            //throw exception
+            throw new Exception("Can't charge truck with electricity!");
         }
 
-        public enum ETypeOfFuel
-        {
-            Soler,
-            Octan95,
-            Octan96,
-            Octan98
-        }
+        //public enum ETypeOfFuel
+        //{
+        //    Soler,
+        //    Octan95,
+        //    Octan96,
+        //    Octan98
+        //}
     }
 }

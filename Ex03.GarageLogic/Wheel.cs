@@ -13,7 +13,16 @@ namespace Ex03.GameLogic
         {
             m_ManufacturerName = i_ManufacturerName;
             m_MaxAirPressureByManufacturer = i_MaxAirPressureByManufacturer;
-            m_CurrentAirPressure = float.Parse(i_CurrentAirPressure);
+
+            float currentAirPressure = float.Parse(i_CurrentAirPressure);
+            if(currentAirPressure > m_MaxAirPressureByManufacturer)
+            {
+                throw new ValueOutOfRangeException(0, m_MaxAirPressureByManufacturer - m_CurrentAirPressure, $"Cannot inflate beyond the maximum pressure of {m_MaxAirPressureByManufacturer}");
+            }
+            else
+            {
+                m_CurrentAirPressure = currentAirPressure;
+            }
         }
 
         public float CurrentAirPressure
@@ -40,6 +49,10 @@ namespace Ex03.GameLogic
             if (newAirPressure <= m_MaxAirPressureByManufacturer)
             {
                 m_CurrentAirPressure = newAirPressure;
+            }
+            else
+            {
+                throw new ValueOutOfRangeException(0, m_MaxAirPressureByManufacturer - m_CurrentAirPressure, $"Cannot inflate beyond the maximum pressure of {m_MaxAirPressureByManufacturer}");
             }
         }
     }

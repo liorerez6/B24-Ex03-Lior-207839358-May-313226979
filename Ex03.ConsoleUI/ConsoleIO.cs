@@ -40,7 +40,7 @@ namespace Ex03.ConsoleUI
 
             string getAmount = Console.ReadLine();
 
-            InputValidationCheck.AreAllCharactersDigits(getAmount);
+            Ex03.GameLogic.LogicInputValidationCheck.AreAllCharactersDigits(getAmount);
 
             return getAmount;
         }
@@ -52,7 +52,7 @@ namespace Ex03.ConsoleUI
             
             string getName = Console.ReadLine();
 
-            InputValidationCheck.AreAllCharactersChars(getName);
+            Ex03.GameLogic.LogicInputValidationCheck.AreAllCharactersChars(getName);
            
             return getName;
         }
@@ -64,7 +64,7 @@ namespace Ex03.ConsoleUI
             
             string getFuelType = Console.ReadLine();
 
-            InputValidationCheck.AreAllCharactersChars(getFuelType);
+            Ex03.GameLogic.LogicInputValidationCheck.AreAllCharactersChars(getFuelType);
 
             return getFuelType;
         }
@@ -76,7 +76,7 @@ namespace Ex03.ConsoleUI
 
             string getLicenseNumber = Console.ReadLine();
 
-            InputValidationCheck.AreAllCharactersDigits(getLicenseNumber);
+            Ex03.GameLogic.LogicInputValidationCheck.AreAllCharactersDigits(getLicenseNumber);
 
             return getLicenseNumber;
         }
@@ -98,7 +98,7 @@ namespace Ex03.ConsoleUI
 
             string getEnergyPercentage = Console.ReadLine();
 
-            InputValidationCheck.AreAllCharactersDigits(getEnergyPercentage);
+            Ex03.GameLogic.LogicInputValidationCheck.AreAllCharactersDigits(getEnergyPercentage);
 
             return getEnergyPercentage;
         }
@@ -110,7 +110,7 @@ namespace Ex03.ConsoleUI
 
             string getPhoneNumber = Console.ReadLine();
 
-            InputValidationCheck.AreAllCharactersDigits(getPhoneNumber);
+            Ex03.GameLogic.LogicInputValidationCheck.AreAllCharactersDigits(getPhoneNumber);
 
             return getPhoneNumber;
         }
@@ -158,6 +158,7 @@ namespace Ex03.ConsoleUI
             {
                 Console.Write(vehicleDetails);
             }
+            ReturnOptionMessage();
         }
 
         public void DisplayVehicleDetails(Dictionary<string, string> i_VehiclesDetails)
@@ -168,6 +169,13 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine($"{vehicleDetails}: ");
                 Console.Write(i_VehiclesDetails[vehicleDetails]);
             }
+            ReturnOptionMessage();
+        }
+
+        public void ReturnOptionMessage()
+        {
+            Console.WriteLine("Press enter to return");
+            Console.ReadLine();
         }
 
         public int GetRepairStatus()
@@ -180,7 +188,7 @@ namespace Ex03.ConsoleUI
 
             string getRepairStatusString = Console.ReadLine();
 
-            InputValidationCheck.IsInputIncludesDigitsInSpecificRange(getRepairStatusString, 1, 3);
+            Ex03.GameLogic.LogicInputValidationCheck.IsInputIncludesDigitsInSpecificRange(getRepairStatusString, "repair status request", 1, 3);
 
             int getRepairStatus = int.Parse(getRepairStatusString);
 
@@ -196,7 +204,7 @@ namespace Ex03.ConsoleUI
 
             string getRepairStatusString = Console.ReadLine();
 
-            InputValidationCheck.IsInputIncludesDigitsInSpecificRange(getRepairStatusString, 1, 2);
+            Ex03.GameLogic.LogicInputValidationCheck.IsInputIncludesDigitsInSpecificRange(getRepairStatusString, "repair status request", 1, 2);
 
             bool userRequestedToSort = int.Parse(getRepairStatusString) == 1;
 
@@ -215,7 +223,7 @@ namespace Ex03.ConsoleUI
 
             string getTypeString = Console.ReadLine();
 
-            InputValidationCheck.IsInputIncludesDigitsInSpecificRange(getTypeString, 1, 5);
+            Ex03.GameLogic.LogicInputValidationCheck.IsInputIncludesDigitsInSpecificRange(getTypeString, "vehicle type request", 1, 5);
 
             return getTypeString;
         }

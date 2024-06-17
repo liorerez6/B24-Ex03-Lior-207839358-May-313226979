@@ -51,7 +51,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void addVehicleInGarageRequest()
+        private void addVehicleInGarageRequest() // option number 1# in the menu
         {
             tryAgain:
 
@@ -71,21 +71,37 @@ namespace Ex03.ConsoleUI
             }
 
 
-            catch(Ex03.GameLogic.ValueOutOfRangeException)
+            catch(Ex03.GameLogic.ValueOutOfRangeException argumentExp)
             {
+                Console.WriteLine($"Error: {argumentExp.Message}");
+                Console.WriteLine($"Valid range: {argumentExp.MinValue} to {argumentExp.MaxValue}");
+                Console.Write(argumentExp);
+                Thread.Sleep(1500);
+                goto tryAgain;
+            }
 
+            catch(FormatException argumentExp)
+            {
+                Console.Write(argumentExp);
+                Thread.Sleep(1500);
+                goto tryAgain;
             }
 
             catch(ArgumentException argumentExp)
             {
-                Console.Write("twerew");
+                Console.Write(argumentExp);
+                Thread.Sleep(1500);
+                goto tryAgain;
+
             }
             catch(Exception ex)  // lefi soogei expection
             {
                 Console.Write(ex);
-                Thread.Sleep(1000);
+                Thread.Sleep(1500);
                 goto tryAgain;
+
             }
+            
         }
 
         private void createNewVehicleForGarage(string i_LicenseNumber)
@@ -126,7 +142,7 @@ namespace Ex03.ConsoleUI
             i_Vehicle.Model = m_ConsoleIOMessages.GetVehicleModelType();
         }
 
-        private void displayVehiclesInGarageDetails()
+        private void displayVehiclesInGarageDetails() // option number 2# in the menu
         {
             tryAgain:
 
@@ -145,8 +161,8 @@ namespace Ex03.ConsoleUI
                 {
                     getGarageDetails = m_Garage.ListOfVehicleLicenseNumbers;
                 }
-
-                m_ConsoleIOMessages.DisplayVehiclesInGarage(getGarageDetails);
+                
+                m_ConsoleIOMessages.DisplayVehiclesInGarage(getGarageDetails); // TO DO loop and exist when user input..
             }
             catch(Exception ex)
             {
@@ -154,9 +170,9 @@ namespace Ex03.ConsoleUI
                 Thread.Sleep(1000);
                 goto tryAgain;
             }
-        }
+        }  
 
-        private void changeVehicleRepairStatus()
+        private void changeVehicleRepairStatus() // option number 3# in the menu
         {
             tryAgain:
 
@@ -168,13 +184,13 @@ namespace Ex03.ConsoleUI
                 switch (getRepairChoise)
                 {
                     case 1:
-                        m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Enums.ERepairStatus.UnderRepair;
+                        m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Vehicle.ERepairStatus.UnderRepair;
                         break;
                     case 2:
-                        m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Enums.ERepairStatus.RepairedNotPayed;
+                        m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Vehicle.ERepairStatus.RepairedNotPayed;
                         break;
                     case 3:
-                        m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Enums.ERepairStatus.RepairedAndPayed;
+                        m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Vehicle.ERepairStatus.RepairedAndPayed;
                         break;
                 }
             }
@@ -186,7 +202,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void inflatingWheel()
+        private void inflatingWheel()  // option number 4# in the menu
         {
             tryAgain:
 
@@ -204,7 +220,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void fuelVehicle()
+        private void fuelVehicle() // option number 5# in the menu
         {
             tryAgain:
 
@@ -224,7 +240,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void chargeElectricVehicle()
+        private void chargeElectricVehicle() // option number 6# in the menu
         {
             tryAgain:
 
@@ -242,7 +258,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void displayFullDetailsOfVehicle()
+        private void displayFullDetailsOfVehicle() // option number 7# in the menu
         {
             tryAgain:
 

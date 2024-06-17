@@ -4,20 +4,17 @@ namespace Ex03.GameLogic
 {
     public class ValueOutOfRangeException : Exception
     {
-        private float m_MaxValue;
-        private float m_MinValue;
+        public float MaxValue { get; private set; }
+        public float MinValue { get; private set; }
 
-        public ValueOutOfRangeException(Exception i_InnerException, string i_Message) : base(i_Message, i_InnerException)
+        public ValueOutOfRangeException(float i_MinValue, float i_MaxValue, string i_Message)
+            : base(i_Message)
         {
-
+            MinValue = i_MinValue;
+            MaxValue = i_MaxValue;
         }
 
         public ValueOutOfRangeException(string i_Message) : base(i_Message)
-        {
-            
-        }
-
-        public ValueOutOfRangeException(string i_Message, float i_Start, float i_End) : base(i_Message)
         {
 
         }

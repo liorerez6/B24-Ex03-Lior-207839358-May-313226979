@@ -3,6 +3,15 @@ using static Ex03.GameLogic.Enums;
 
 namespace Ex03.GameLogic
 {
+    public enum EVehicleTypes
+    {
+        FuelCar,
+        ElectricCar,
+        FuelMotorcycle,
+        ElectricMotorcycle,
+        Truck
+    }
+
     public class VehicleTypesCreator
     {
         public static Vehicle CreateNewVehicle(string i_VehicleType)

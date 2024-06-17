@@ -1,34 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using static Ex03.GameLogic.Enums;
 
 namespace Ex03.GameLogic
 {
     internal class ElectricCar : Vehicle
     {
+        private const int k_NumberOfWheels = 5;
         private const int k_MaxTiresPressure = 31;
         private const float k_MaxTimeEngine = 3.5F;
-
-        private List<Wheel> m_Wheels = new List<Wheel>();
-        private Enums.ECarColors m_CarColor;
+        private List<Wheel> m_Wheels = new List<Wheel>(k_NumberOfWheels);
+        private ECarColors m_CarColor;
         private int m_NumberOfDoors;
         private float m_BatteryTimeLeft;       
 
         //METHODS
         public override void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes)
         {
-            Wheel wheel = new Wheel(i_GetAttributes["Manufacturer name"], k_MaxTiresPressure, i_GetAttributes["Current air pressure"]);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel); // need to corret because now every wheell have refernce to the same wheel. changing tire pressure in one
-                                    // will change it in all of them
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
+            for (int i = 0; i < k_NumberOfWheels; i++)
+            {
+                Wheel wheel = new Wheel(i_GetAttributes["Manufacturer name"], k_MaxTiresPressure, i_GetAttributes["Current air pressure"]);
+                m_Wheels.Add(wheel);
+            }
 
-            m_CarColor = (Enums.ECarColors)Enum.Parse(typeof(Enums.ECarColors), i_GetAttributes["Car color"]);
+            LogicInputValidationCheck.IsInputIncludesDigitsInSpecificRange(i_GetAttributes["Number of doors"], "Number of doors", 2, 5);
+            LogicInputValidationCheck.IsInputIncludesDigitsInSpecificRange(i_GetAttributes["Battery time left"], "Battery time left", 0, k_MaxTimeEngine);
+
+            m_CarColor = (ECarColors)Enum.Parse(typeof(ECarColors), i_GetAttributes["Car color"]);
             m_NumberOfDoors = int.Parse(i_GetAttributes["Number of doors"]);
             m_BatteryTimeLeft = int.Parse(i_GetAttributes["Battery time left"]);
-            
         }
 
         public override List<string> InitializeAttrubuteList()
@@ -55,7 +54,7 @@ namespace Ex03.GameLogic
 
         public override void FuelVehicle(string i_FuelType, string i_FualAmount)
         {
-            //throw exception
+            throw new Exception("Can't insert fuel to an electric car!");
         }
 
         public override void ChargeElectricVehicle(string i_TimeAmount)
@@ -65,6 +64,10 @@ namespace Ex03.GameLogic
             if (newTimeAmount <= k_MaxTimeEngine)
             {
                 m_BatteryTimeLeft = newTimeAmount;
+            }
+            else
+            {
+                throw new ValueOutOfRangeException(0, k_MaxTimeEngine - m_BatteryTimeLeft, "Can't charge the requested amount");
             }
         }
 

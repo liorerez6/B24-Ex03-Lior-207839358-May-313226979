@@ -6,9 +6,10 @@ namespace Ex03.GameLogic
 {
     internal class FuelCar : Vehicle
     {
-        const int k_MaxTiresPressure = 31;
-        const float k_MaxFuelTank = 45F;
-        const ETypeOfFuel k_TypeOfFuel = ETypeOfFuel.Octan95;
+        private const int k_NumberOfWheels = 5;
+        private const int k_MaxTiresPressure = 31;
+        private const float k_MaxFuelTank = 45F;
+        private const ETypeOfFuel k_TypeOfFuel = ETypeOfFuel.Octan95;
 
         private ECarColors m_CarColor;
         private int m_NumberOfDoors;
@@ -17,7 +18,6 @@ namespace Ex03.GameLogic
 
 
         //METHODS:
-
         public override void FuelVehicle(string i_FuelType, string i_FualAmount)
         {
             ETypeOfFuel fuelType = (ETypeOfFuel)Enum.Parse(typeof(ETypeOfFuel), i_FuelType);
@@ -29,6 +29,10 @@ namespace Ex03.GameLogic
                 if (newFuelAmount <= k_MaxFuelTank)
                 {
                     m_CurrentFuelAmount = newFuelAmount;
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException(0, k_MaxFuelTank - m_CurrentFuelAmount, "Can't fuel car with the requested amount");
                 }
             }
         }
@@ -48,19 +52,20 @@ namespace Ex03.GameLogic
 
         public override void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes)
         {
-            Wheel wheel = new Wheel(i_GetAttributes["Manufacturer name"], k_MaxTiresPressure, i_GetAttributes["Current air pressure"]);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel); // need to corret because now every wheell have refernce to the same wheel. changing tire pressure in one
-                                 // will change it in all of them
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
+            for (int i = 0; i < k_NumberOfWheels; i++)
+            {
+                Wheel wheel = new Wheel(i_GetAttributes["Manufacturer name"], k_MaxTiresPressure, i_GetAttributes["Current air pressure"]);
+                m_Wheels.Add(wheel);
+            }
 
+            LogicInputValidationCheck.IsInputIncludesDigitsInSpecificRange(i_GetAttributes["Number of doors"], "Number of doors", 2, 5);
+            LogicInputValidationCheck.IsInputIncludesDigitsInSpecificRange(i_GetAttributes["Current Fuel Amount"], "Current Fuel Amount", 0, k_MaxFuelTank);
 
-            m_CarColor = (Enums.ECarColors)Enum.Parse(typeof(Enums.ECarColors), i_GetAttributes["Car color"]);
+            m_CarColor = (ECarColors)Enum.Parse(typeof(ECarColors), i_GetAttributes["Car color"]);
             m_NumberOfDoors = int.Parse(i_GetAttributes["Number of doors"]);
             m_CurrentFuelAmount = int.Parse(i_GetAttributes["Current Fuel Amount"]);
         }
+
         public override void InflatingWheel()
         {
             foreach (Wheel wheel in m_Wheels)
@@ -91,17 +96,15 @@ namespace Ex03.GameLogic
         }
         public override void ChargeElectricVehicle(string i_TimeAmount)
         {
-            //throw exception
+            throw new Exception("Can't charge fueled car with electricity!");
         }
 
-        public enum ETypeOfFuel
-        {
-            Soler,
-            Octan95,
-            Octan96,
-            Octan98
-        }
-
-
+        //public enum ETypeOfFuel
+        //{
+        //    Soler,
+        //    Octan95,
+        //    Octan96,
+        //    Octan98
+        //}
     }
 }

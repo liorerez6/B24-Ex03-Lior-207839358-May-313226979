@@ -30,7 +30,7 @@ namespace Ex03.GameLogic
 
             if (isVehicleAlreadyInGarage && i_LicenseNumber != null)
             {
-                m_VehiclesInGarage[i_LicenseNumber].RepairStatus = Enums.ERepairStatus.UnderRepair;
+                m_VehiclesInGarage[i_LicenseNumber].RepairStatus = Vehicle.ERepairStatus.UnderRepair;
             }
 
             return isVehicleAlreadyInGarage;
@@ -39,7 +39,7 @@ namespace Ex03.GameLogic
         public List<string> SortVehiclesByRepairStatus(int i_RepairStatus)
         {
             List<string> list = new List<string>();
-            Enums.ERepairStatus sortDelim = (Enums.ERepairStatus)i_RepairStatus;
+            Vehicle.ERepairStatus sortDelim = (Vehicle.ERepairStatus)i_RepairStatus;
 
             foreach (string license in m_VehiclesInGarage.Keys)
             {
