@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Ex03.GameLogic
 {
-    public class Garage
+    /*public*/ internal class Garage
     {
         private Dictionary<string, Vehicle> m_VehiclesInGarage = new Dictionary<string, Vehicle>();
 
@@ -67,47 +67,12 @@ namespace Ex03.GameLogic
             m_VehiclesInGarage[i_LicenseNumber].ChargeElectricVehicle(i_TimeAmount);
         }
 
-        public Dictionary<string, string> DisplayVehicleDetails(string i_LicenseNumber)
+        public List<string> DisplayVehicleDetails(string i_LicenseNumber)
         {
-            Dictionary<string, string> details = m_VehiclesInGarage[i_LicenseNumber].DisplayDetails();
+            List<string> details = m_VehiclesInGarage[i_LicenseNumber].DisplayDetails();
 
             return details;
         }
 
-        //public void ChangeVehicleRepairStatus(string i_LicenseNumber, int i_RepairStatus)
-        //{
-        //    //get details from user: LicenseNumber, new repair status
-        //    if(i_LicenseNumber != null)
-        //    {
-        //        m_VehiclesInGarage[i_LicenseNumber].RepairStatus = (Enums.ERepairStatus)(i_RepairStatus);
-        //    }
-        //}
-
-        //public void InflateVehicleWheels()
-        //{
-        //    //get license number
-        //}
-
-        //public void FillVehicleWithFuel()
-        //{
-        //    //get license number
-        //    //get type of fuel
-        //    //get amount of fuel
-        //}
-
-        //public void ChargeVehicleWithElectricity()
-        //{
-        //    //get license number
-        //    //get amount of time
-        //}
-
-        //public void DisplayVehicleFullDetails()
-        //{
-        //    //license number
-        //    //model
-        //    //owner
-        //    //repair status
-        //    //detail for this specifi kind of vehicle
-        //}
     }
 }

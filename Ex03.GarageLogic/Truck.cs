@@ -11,8 +11,9 @@ namespace Ex03.GameLogic
         private const float k_MaxFuelTank = 120F;
         private bool r_IsCarringToxicSubstances;
         private float m_CargoCapacity;
-        private List<Wheel> m_Wheels = new List<Wheel>(k_NumberOfWheels);
         private float m_CurrentFuelAmount;
+
+        public Truck() : base(k_NumberOfWheels, k_MaxTiresPressure){ }
 
         public override void FuelVehicle(string i_FuelType, string i_FualAmount)
         {
@@ -40,8 +41,6 @@ namespace Ex03.GameLogic
                 "Cargo Capacity",
                 "Current Fuel Amount",
                 "Is carring Toxic Substances",
-                "Current air pressure",
-                "Manufacturer name"
             };
 
             return i_Attributes;
@@ -49,44 +48,20 @@ namespace Ex03.GameLogic
 
         public override void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes)
         {
-            for(int i =0; i < k_NumberOfWheels; i++)
-            {
-                Wheel wheel = new Wheel(i_GetAttributes["Manufacturer name"], k_MaxTiresPressure, i_GetAttributes["Current air pressure"]);
-                m_Wheels.Add(wheel);
-            }
-
             LogicInputValidationCheck.CompareInputToStrings(i_GetAttributes["Is carring Toxic Substances"], "Is carring Toxic Substances", "yes", "no");
 
-            m_CargoCapacity = int.Parse(i_GetAttributes["Cargo Capacity"]);
+            m_CargoCapacity = float.Parse(i_GetAttributes["Cargo Capacity"]);
             r_IsCarringToxicSubstances = (i_GetAttributes["Is carring Toxic Substances"]).ToLower().Equals("yes");
-            m_CurrentFuelAmount = int.Parse(i_GetAttributes["Current Fuel Amount"]);
+            m_CurrentFuelAmount = float.Parse(i_GetAttributes["Current Fuel Amount"]);
         }
 
-        public override void InflatingWheel()
+        public override List<string> DisplayDetails()
         {
-            foreach (Wheel wheel in m_Wheels)
-            {
-                wheel.CurrentAirPressure = k_MaxTiresPressure;
-            }
-        }
+            List<string> details = base.DisplayDetails();
 
-        public override Dictionary<string, string> DisplayDetails()
-        {
-            Dictionary<string, string> details = base.DisplayDetails();
-
-            details.Add("Cargo Capacity", m_CargoCapacity.ToString());
-            details.Add("Carring Toxic Substances", r_IsCarringToxicSubstances.ToString());
-            details.Add("Current Fuel Amount", m_CurrentFuelAmount.ToString());
-            details.Add("Manufacture name", m_Wheels[0].ManufactureName);
-            details.Add("Maximun air pressure by manufacture", m_Wheels[0].MaxAirPressure.ToString());
-
-            char numOfWheel = '1';
-
-            foreach (Wheel wheel in m_Wheels)
-            {
-                details.Add(numOfWheel + " wheel air pressure", wheel.CurrentAirPressure.ToString());
-                numOfWheel++;
-            }
+            details.Add("Cargo Capacity " + m_CargoCapacity.ToString());
+            details.Add("Carring Toxic Substances " + r_IsCarringToxicSubstances.ToString());
+            details.Add("Current Fuel Amount " + m_CurrentFuelAmount.ToString());
 
             return details;
         }
@@ -95,13 +70,5 @@ namespace Ex03.GameLogic
         {
             throw new Exception("Can't charge truck with electricity!");
         }
-
-        //public enum ETypeOfFuel
-        //{
-        //    Soler,
-        //    Octan95,
-        //    Octan96,
-        //    Octan98
-        //}
     }
 }

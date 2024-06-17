@@ -2,7 +2,7 @@
 
 namespace Ex03.GameLogic
 {
-    internal class Wheel
+    public class Wheel
     {
         private string m_ManufacturerName;
         private float m_MaxAirPressureByManufacturer;
@@ -23,6 +23,13 @@ namespace Ex03.GameLogic
             {
                 m_CurrentAirPressure = currentAirPressure;
             }
+        }
+
+        public Wheel(Wheel i_CopyWheel)
+        {
+            m_CurrentAirPressure = i_CopyWheel.CurrentAirPressure;
+            m_ManufacturerName = i_CopyWheel.m_ManufacturerName;
+            m_MaxAirPressureByManufacturer = i_CopyWheel.m_MaxAirPressureByManufacturer;
         }
 
         public float CurrentAirPressure

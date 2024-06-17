@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using static Ex03.GameLogic.Enums;
+using System.Globalization;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Ex03.GameLogic
 {
@@ -39,9 +41,71 @@ namespace Ex03.GameLogic
         //Variables
         private string m_ModelName;
         private string m_LicenseNumber;
-        private float m_EnergyPercentage;
         private Owner m_OwnerDetails = new Owner();
         private ERepairStatus m_VehicleRepairStatus = ERepairStatus.UnderRepair;
+        private List<Wheel> m_Wheels = new List<Wheel>();
+        private int m_NumberOfWheels;
+        private int m_MaxTirePressure;
+
+        public Vehicle() { }
+
+        public Vehicle(int i_NumberOfWheels, int i_TirePressure)
+        {
+            m_NumberOfWheels = i_NumberOfWheels;
+            m_MaxTirePressure = i_TirePressure;
+        }
+
+        public List<Wheel> GetWheelsCopy 
+        {
+            get { return m_Wheels.ToList(); }
+        }
+
+        public void InflatingWheel()
+        {
+            foreach (Wheel wheel in m_Wheels)
+            {
+                wheel.CurrentAirPressure = m_MaxTirePressure;
+            }
+        }
+
+        public List<string> InitializeWheelsList(bool i_AreAllWheelsTheSame)
+        {
+            List<string> wheels = new List<string>();
+
+            if (i_AreAllWheelsTheSame)
+            {
+                wheels.Add("Manufacturer name");
+                wheels.Add("Current air pressure");
+            }
+            else
+            {
+                for (int i = 1; i <= m_NumberOfWheels; i++)
+                {
+                    wheels.Add("Manufacturer name " + i);
+                    wheels.Add("Current air pressure " + i);
+                }
+            }
+
+            return wheels;
+        }
+
+        public void InitializeWheels(Dictionary<string, string> i_GetWheels, bool i_AreAllWheelsTheSame)
+        {
+            foreach (string wheelName in i_GetWheels.Keys)
+            {
+                Wheel wheel = new Wheel(wheelName, m_MaxTirePressure, i_GetWheels[wheelName]);
+                m_Wheels.Add(wheel);
+            }
+
+            if (i_AreAllWheelsTheSame)      //Than the dictonary has only 1 wheel
+            {
+                for(int i=0; i < m_NumberOfWheels - 1; i++)
+                {
+                    Wheel duplicateWheel = new Wheel(m_Wheels[0]);
+                    m_Wheels.Add((Wheel)duplicateWheel);
+                }
+            }
+        }
 
         //should decide if: keep as a nested class or 2 variable inside vehicle
         private class Owner
@@ -89,17 +153,10 @@ namespace Ex03.GameLogic
             set { m_ModelName = value; }
         }
 
-        public float EnergyPercentage
-        {
-            get { return m_EnergyPercentage; }
-            set { m_EnergyPercentage = value; }
-        }
-
         //METHODS
 
         public void UpdateOwnerDetails(string i_Name, string i_Phone)
         {
-
             m_OwnerDetails.Name = i_Name;
             m_OwnerDetails.Phone = i_Phone;
         }
@@ -112,27 +169,29 @@ namespace Ex03.GameLogic
 
         public abstract void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes);
 
-
-        public abstract void InflatingWheel();
-
-
         public abstract void FuelVehicle(string i_FuelType, string i_FualAmount);
 
         public abstract void ChargeElectricVehicle(string i_TimeAmount);
        
-        public virtual Dictionary<string, string> DisplayDetails()
+        public virtual List<string> DisplayDetails()
         {
-            Dictionary<string, string> details = new Dictionary<string, string>();
+            List<string> details = new List<string>();
 
-            details.Add("License number", m_LicenseNumber);
-            details.Add("Owner's name", m_OwnerDetails.Name);
-            details.Add("Owner's phone number", m_OwnerDetails.Phone);
-            details.Add("Model name", m_ModelName);
-            details.Add("Energy percentage", m_EnergyPercentage.ToString());
-            details.Add("Vehicle repair status", m_VehicleRepairStatus.ToString());
+            details.Add("License number " + m_LicenseNumber);
+            details.Add("Owner's name " + m_OwnerDetails.Name);
+            details.Add("Owner's phone number " + m_OwnerDetails.Phone);
+            details.Add("Model name "+ m_ModelName);
+            details.Add("Vehicle repair status " + m_VehicleRepairStatus.ToString());
+
+            int numOfWheel = 1;
+
+            foreach (Wheel wheel in m_Wheels)
+            {
+                details.Add(numOfWheel + " wheel details " + wheel.CurrentAirPressure.ToString() + " " + wheel.ManufactureName.ToString());
+                numOfWheel++;
+            }
 
             return details;
         }
-
     }
 }

@@ -1,20 +1,17 @@
 ﻿using Ex03.GameLogic;
-using System;
-using System.Collections.Generic;
-using static Ex03.GameLogic.Enums;
 
 namespace Ex03.ConsoleUI
 {
-
     internal class ConsoleIO
     {
-        //private string getInputFromUser()
-        //{
-        //    string getName = Console.ReadLine();
+        public bool GetWheelsFromUser()
+        {
+            Console.Clear();
+            string option = "Do you want to insert each wheel seperated?";
+            string message = "Invalid request";
 
-        //    return getName;
-        //}
-
+            return !DisplayUserYesOrNoOption(option, message);
+        }
         public string DisplayMessage(string i_Message)
         {
             Console.Clear();
@@ -64,7 +61,7 @@ namespace Ex03.ConsoleUI
             
             string getFuelType = Console.ReadLine();
 
-            Ex03.GameLogic.LogicInputValidationCheck.AreAllCharactersChars(getFuelType);
+            //Ex03.GameLogic.LogicInputValidationCheck.AreAllCharactersChars(getFuelType);
 
             return getFuelType;
         }
@@ -151,12 +148,12 @@ namespace Ex03.ConsoleUI
 
         //maybe should be display a list, any list
 
-        public void DisplayVehiclesInGarage(List<string> i_VehiclesInGarage)
+        public void DisplayVehicleInGarage(List<string> i_VehiclesInGarage)
         {
             Console.Clear();
             foreach (string vehicleDetails in i_VehiclesInGarage)
             {
-                Console.Write(vehicleDetails);
+                Console.WriteLine(vehicleDetails);
             }
             ReturnOptionMessage();
         }
@@ -167,14 +164,14 @@ namespace Ex03.ConsoleUI
             foreach (string vehicleDetails in i_VehiclesDetails.Keys)
             {
                 Console.WriteLine($"{vehicleDetails}: ");
-                Console.Write(i_VehiclesDetails[vehicleDetails]);
+                Console.WriteLine(i_VehiclesDetails[vehicleDetails]);
             }
             ReturnOptionMessage();
         }
 
         public void ReturnOptionMessage()
         {
-            Console.WriteLine("Press enter to return");
+            Console.WriteLine(Environment.NewLine + "Press enter to return");
             Console.ReadLine();
         }
 
@@ -198,13 +195,22 @@ namespace Ex03.ConsoleUI
         public bool AskIfUserWantToSortVehicleByRepairStatus()
         {
             Console.Clear();
-            Console.WriteLine("Do you want to display vehicles sorted by a repair status?");
+
+            string optionMessage = "Do you want to display vehicles sorted by a repair status?";
+            string message = "repair status request";
+            
+            return DisplayUserYesOrNoOption(optionMessage, message);
+        }
+
+        public bool DisplayUserYesOrNoOption(string i_Option, string i_Message)
+        {
+            Console.WriteLine(i_Option);
             Console.WriteLine("1. Yes");
             Console.WriteLine("2. No");
 
             string getRepairStatusString = Console.ReadLine();
 
-            Ex03.GameLogic.LogicInputValidationCheck.IsInputIncludesDigitsInSpecificRange(getRepairStatusString, "repair status request", 1, 2);
+            LogicInputValidationCheck.IsInputIncludesDigitsInSpecificRange(getRepairStatusString, i_Message, 1, 2);
 
             bool userRequestedToSort = int.Parse(getRepairStatusString) == 1;
 

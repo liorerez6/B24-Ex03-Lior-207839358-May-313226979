@@ -14,9 +14,6 @@ namespace Ex03.GameLogic
             MaxValue = i_MaxValue;
         }
 
-        public ValueOutOfRangeException(string i_Message) : base(i_Message)
-        {
-
-        }
+        public ValueOutOfRangeException(string i_Message) : base(i_Message) {}
     }
 }

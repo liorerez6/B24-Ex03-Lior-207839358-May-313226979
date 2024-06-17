@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using Ex03.GameLogic;
-using System.Threading;
 
 namespace Ex03.ConsoleUI
 {
@@ -53,7 +51,7 @@ namespace Ex03.ConsoleUI
 
         private void addVehicleInGarageRequest() // option number 1# in the menu
         {
-            tryAgain:
+            //tryAgain:
 
             try
             {
@@ -70,36 +68,36 @@ namespace Ex03.ConsoleUI
                 }
             }
 
-
             catch(Ex03.GameLogic.ValueOutOfRangeException argumentExp)
             {
+                
                 Console.WriteLine($"Error: {argumentExp.Message}");
                 Console.WriteLine($"Valid range: {argumentExp.MinValue} to {argumentExp.MaxValue}");
                 Console.Write(argumentExp);
-                Thread.Sleep(1500);
-                goto tryAgain;
+                m_ConsoleIOMessages.ReturnOptionMessage();
+                //goto tryAgain;
             }
 
             catch(FormatException argumentExp)
             {
+                Console.Clear();
                 Console.Write(argumentExp);
-                Thread.Sleep(1500);
-                goto tryAgain;
+                m_ConsoleIOMessages.ReturnOptionMessage();
+                //goto tryAgain;
             }
 
             catch(ArgumentException argumentExp)
             {
                 Console.Write(argumentExp);
-                Thread.Sleep(1500);
-                goto tryAgain;
+                m_ConsoleIOMessages.ReturnOptionMessage();
+                //goto tryAgain;
 
             }
             catch(Exception ex)  // lefi soogei expection
             {
                 Console.Write(ex);
-                Thread.Sleep(1500);
-                goto tryAgain;
-
+                m_ConsoleIOMessages.ReturnOptionMessage();
+                //goto tryAgain;
             }
             
         }
@@ -110,13 +108,19 @@ namespace Ex03.ConsoleUI
             Vehicle vehicle = VehicleTypesCreator.CreateNewVehicle(getTypeOfVehicle);
 
             initializeVehicleDetails(vehicle, i_LicenseNumber);
-
-            List<string> attributes = vehicle.InitializeAttrubuteList();
-            Dictionary<string, string> getAttributes = getInfoFromUserRegadingVehicle(attributes);
-
-            vehicle.InitializeAttributesOfVehicle(getAttributes);
+            initializeWheelsOfVehicle(vehicle);
+            initializeAttributesOfVehicle(vehicle);
             m_Garage.PutNewVehicleInGarage(vehicle);          
         }
+
+        private void initializeAttributesOfVehicle(Vehicle i_Vehicle)
+        {
+            List<string> attributes = i_Vehicle.InitializeAttrubuteList();
+            Dictionary<string, string> getAttributes = getInfoFromUserRegadingVehicle(attributes);
+
+            i_Vehicle.InitializeAttributesOfVehicle(getAttributes);
+        }
+
 
         private Dictionary<string, string> getInfoFromUserRegadingVehicle(List<string> i_Atttibutes)
         {
@@ -131,6 +135,24 @@ namespace Ex03.ConsoleUI
             return additionalSpecificInfoAboutVehicle;
         }
 
+        private void initializeWheelsOfVehicle(Vehicle i_Vehicle)
+        {
+            bool isAllWheelsTheSame = m_ConsoleIOMessages.GetWheelsFromUser();
+
+            List<string> wheelsList = i_Vehicle.InitializeWheelsList(isAllWheelsTheSame);
+            Dictionary<string, string> getWheels = new Dictionary<string, string>();
+
+            for (int i = 0; i < wheelsList.Count; i += 2)
+            {
+                string nameInput = m_ConsoleIOMessages.DisplayMessage(wheelsList[i]);
+                string pressureInput = m_ConsoleIOMessages.DisplayMessage(wheelsList[i + 1]);
+
+                getWheels.Add(nameInput, pressureInput);
+            }
+  
+            i_Vehicle.InitializeWheels(getWheels, isAllWheelsTheSame);
+        }
+
         private void initializeVehicleDetails(Vehicle i_Vehicle, string i_LicenseNumber)
         {
             string getOwnerName = m_ConsoleIOMessages.GetOwnerName();
@@ -138,13 +160,12 @@ namespace Ex03.ConsoleUI
 
             i_Vehicle.UpdateOwnerDetails(getOwnerName, getOwnerPhoneNumber);
             i_Vehicle.LicenseNumber = i_LicenseNumber;
-            i_Vehicle.EnergyPercentage = float.Parse(m_ConsoleIOMessages.GetEnergyPercentage());
             i_Vehicle.Model = m_ConsoleIOMessages.GetVehicleModelType();
         }
 
         private void displayVehiclesInGarageDetails() // option number 2# in the menu
         {
-            tryAgain:
+            //tryAgain:
 
             try
             {
@@ -162,19 +183,19 @@ namespace Ex03.ConsoleUI
                     getGarageDetails = m_Garage.ListOfVehicleLicenseNumbers;
                 }
                 
-                m_ConsoleIOMessages.DisplayVehiclesInGarage(getGarageDetails); // TO DO loop and exist when user input..
+                m_ConsoleIOMessages.DisplayVehicleInGarage(getGarageDetails); // TO DO loop and exist when user input..
             }
             catch(Exception ex)
             {
                 Console.Write(ex);
-                Thread.Sleep(1000);
-                goto tryAgain;
+                m_ConsoleIOMessages.ReturnOptionMessage();
+                //goto tryAgain;
             }
         }  
 
         private void changeVehicleRepairStatus() // option number 3# in the menu
         {
-            tryAgain:
+            //tryAgain:
 
             try
             {
@@ -197,14 +218,14 @@ namespace Ex03.ConsoleUI
             catch(Exception ex)
             {
                 Console.Write(ex);
-                Thread.Sleep(1000);
-                goto tryAgain;
+                m_ConsoleIOMessages.ReturnOptionMessage();
+                //goto tryAgain;
             }
         }
 
         private void inflatingWheel()  // option number 4# in the menu
         {
-            tryAgain:
+            //tryAgain:
 
             try
             {
@@ -215,14 +236,14 @@ namespace Ex03.ConsoleUI
             catch (Exception ex)
             {
                 Console.Write(ex);
-                Thread.Sleep(1000);
-                goto tryAgain;
+                m_ConsoleIOMessages.ReturnOptionMessage();
+                //goto tryAgain;
             }
         }
 
         private void fuelVehicle() // option number 5# in the menu
         {
-            tryAgain:
+            //tryAgain:
 
             try
             {
@@ -235,14 +256,14 @@ namespace Ex03.ConsoleUI
             catch (Exception ex)
             {
                 Console.Write(ex);
-                Thread.Sleep(1000);
-                goto tryAgain;
+                m_ConsoleIOMessages.ReturnOptionMessage();
+                //goto tryAgain;
             }
         }
 
         private void chargeElectricVehicle() // option number 6# in the menu
         {
-            tryAgain:
+            //tryAgain:
 
             try { 
                 string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
@@ -253,26 +274,26 @@ namespace Ex03.ConsoleUI
             catch (Exception ex)
             {
                 Console.Write(ex);
-                Thread.Sleep(1000);
-                goto tryAgain;
+                m_ConsoleIOMessages.ReturnOptionMessage();
+                //goto tryAgain;
             }
         }
 
         private void displayFullDetailsOfVehicle() // option number 7# in the menu
         {
-            tryAgain:
+            //tryAgain:
 
             try { 
                 string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
-                Dictionary<string, string> details = m_Garage.DisplayVehicleDetails(getLicenseNumber);
+                List<string> details = m_Garage.DisplayVehicleDetails(getLicenseNumber);
 
-                m_ConsoleIOMessages.DisplayVehicleDetails(details);
+                m_ConsoleIOMessages.DisplayVehicleInGarage(details);
             }
             catch (Exception ex)
             {
                 Console.Write(ex);
-                Thread.Sleep(1000);
-                goto tryAgain;
+                m_ConsoleIOMessages.ReturnOptionMessage();
+                //goto tryAgain;
             }
         }
     }

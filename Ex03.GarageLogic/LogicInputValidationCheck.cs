@@ -24,13 +24,15 @@ namespace Ex03.GameLogic
 
             if (!isValidInput)
             {
-                foreach (char c in i_Input)
-                {
-                    if (!char.IsDigit(c))
-                    {
-                        isValidInput = true;
-                    }
-                }
+                isValidInput = !(float.TryParse(i_Input, out float FloatInput));
+                
+                //foreach (char c in i_Input)
+                //{
+                //    if (!char.IsDigit(c)
+                //    { 
+                //        isValidInput = true;
+                //    }
+                //}
             }
 
             if (isValidInput)
@@ -72,13 +74,13 @@ namespace Ex03.GameLogic
         {
             AreAllCharactersDigits(i_Input);
 
-            if (float.TryParse(i_Input, out float getNumber))
+            float getNumber = float.Parse(i_Input);
+            
+            if (!(getNumber >= i_Start && getNumber <= i_End))
             {
-                if (!(getNumber >= i_Start && getNumber <= i_End))
-                {
-                    throwException(i_End, i_Start, i_Message);
-                }
+                throwException(i_End, i_Start, i_Message);
             }
+            
         }
         
         public static void CompareInputToStrings(string i_Input, string i_Message, string i_FisrtCompare, string i_SecondCompare)
