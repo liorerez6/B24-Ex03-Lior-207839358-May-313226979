@@ -12,11 +12,7 @@ namespace Ex03.GameLogic
         private List<Wheel> m_Wheels = new List<Wheel>();
         private Enums.ECarColors m_CarColor;
         private int m_NumberOfDoors;
-        private float m_BatteryTimeLeft;
-
-        //private List<string> m_i_Attributes;
-
-       
+        private float m_BatteryTimeLeft;       
 
         //METHODS
         public override void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes)
@@ -24,7 +20,7 @@ namespace Ex03.GameLogic
             Wheel wheel = new Wheel(i_GetAttributes["Manufacturer name"], k_MaxTiresPressure, i_GetAttributes["Current air pressure"]);
             m_Wheels.Add(wheel);
             m_Wheels.Add(wheel); // need to corret because now every wheell have refernce to the same wheel. changing tire pressure in one
-                                 // will change it in all of them
+                                    // will change it in all of them
             m_Wheels.Add(wheel);
             m_Wheels.Add(wheel);
             m_Wheels.Add(wheel);
@@ -32,6 +28,7 @@ namespace Ex03.GameLogic
             m_CarColor = (Enums.ECarColors)Enum.Parse(typeof(Enums.ECarColors), i_GetAttributes["Car color"]);
             m_NumberOfDoors = int.Parse(i_GetAttributes["Number of doors"]);
             m_BatteryTimeLeft = int.Parse(i_GetAttributes["Battery time left"]);
+            
         }
 
         public override List<string> InitializeAttrubuteList()

@@ -28,9 +28,8 @@ namespace Ex03.GameLogic
         {
             bool isVehicleAlreadyInGarage = m_VehiclesInGarage.ContainsKey(i_LicenseNumber);
 
-            if (isVehicleAlreadyInGarage)
+            if (isVehicleAlreadyInGarage && i_LicenseNumber != null)
             {
-                //If is in garage - update it's repair status
                 m_VehiclesInGarage[i_LicenseNumber].RepairStatus = Enums.ERepairStatus.UnderRepair;
             }
 

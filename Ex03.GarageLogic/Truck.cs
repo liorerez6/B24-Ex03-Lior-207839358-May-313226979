@@ -6,9 +6,10 @@ namespace Ex03.GameLogic
 {
     internal class Truck : Vehicle
     {
+        private const int k_NumberOfWheels = 12;
         private bool r_IsCarringToxicSubstances;
         private float m_CargoCapacity;
-        private List<Wheel> m_Wheels = new List<Wheel>();
+        private List<Wheel> m_Wheels = new List<Wheel>(k_NumberOfWheels);
         const ETypeOfFuel k_TypeOfFuel = ETypeOfFuel.Soler;
 
         private const int k_MaxTiresPressure = 28;
@@ -45,26 +46,17 @@ namespace Ex03.GameLogic
 
         public override void InitializeAttributesOfVehicle(Dictionary<string, string> i_GetAttributes)
         {
-            Wheel wheel = new Wheel(i_GetAttributes["Manufacturer name"], k_MaxTiresPressure, i_GetAttributes["Current air pressure"]);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel); // need to corret because now every wheell have refernce to the same wheel. changing tire pressure in one
-                                 // will change it in all of them
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
-            m_Wheels.Add(wheel);
-
+            for(int i =0; i < k_NumberOfWheels; i++)
+            {
+                Wheel wheel = new Wheel(i_GetAttributes["Manufacturer name"], k_MaxTiresPressure, i_GetAttributes["Current air pressure"]);
+                m_Wheels.Add(wheel);
+            }
 
             m_CargoCapacity = int.Parse(i_GetAttributes["Cargo Capacity"]);
-            r_IsCarringToxicSubstances = bool.Parse(i_GetAttributes["Carring Toxic Substances"]);
+            r_IsCarringToxicSubstances = bool.Parse(i_GetAttributes["Carring Toxic Substances"]); // 
             m_CurrentFuelAmount = int.Parse(i_GetAttributes["Current Fuel Amount"]);
         }
+
         public override void InflatingWheel()
         {
             foreach (Wheel wheel in m_Wheels)
@@ -93,6 +85,7 @@ namespace Ex03.GameLogic
 
             return details;
         }
+
         public override void ChargeElectricVehicle(string i_TimeAmount)
         {
             //throw exception
@@ -105,7 +98,5 @@ namespace Ex03.GameLogic
             Octan96,
             Octan98
         }
-        //METHODS:
-
     }
 }

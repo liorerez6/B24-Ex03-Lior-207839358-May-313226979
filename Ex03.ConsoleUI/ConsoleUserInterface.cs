@@ -1,62 +1,90 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Ex03.GameLogic;
+using System.Threading;
 
 namespace Ex03.ConsoleUI
 {
-
-
     internal class ConsoleUserInterface
     {
         ConsoleIO m_ConsoleIOMessages = new ConsoleIO();
         Garage m_Garage = new Garage();
 
-
         //METHODS
         public void DisplayMenuChoisesToUser()
         {
+            bool isExitRequested = false;
 
-            int userChoise = m_ConsoleIOMessages.DisplayGarageSystemOptions();
-
-            switch (userChoise)
+            while (!isExitRequested)
             {
-                case 1:
-                    addVehicleInGarageRequest();
-                    break;
-                case 2:
-                    displayVehiclesInGarageDetails();
-                    break;
-                case 3:
-                    changeVehicleRepairStatus();
-                    break;
-                case 4:
-                    inflatingWheel();
-                    break;
-                case 5:
-                    fuelVehicle();
-                    break;
-                case 6:
-                    chargeElectricVehicle();
-                    break;
-                case 7:
-                    displayFullDetailsOfVehicle();
-                    break;
-                default:
-                    break;
+                int userChoise = m_ConsoleIOMessages.DisplayGarageSystemOptions();
+
+                switch (userChoise)
+                {
+                    case 1:
+                        addVehicleInGarageRequest();
+                        break;
+                    case 2:
+                        displayVehiclesInGarageDetails();
+                        break;
+                    case 3:
+                        changeVehicleRepairStatus();
+                        break;
+                    case 4:
+                        inflatingWheel();
+                        break;
+                    case 5:
+                        fuelVehicle();
+                        break;
+                    case 6:
+                        chargeElectricVehicle();
+                        break;
+                    case 7:
+                        displayFullDetailsOfVehicle();
+                        break;
+                    case 8:
+                        isExitRequested = true;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
         private void addVehicleInGarageRequest()
         {
-            string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
-            bool isAlreadyInGarage = m_Garage.IsVehicleAlreadyInGarage(getLicenseNumber);
+            tryAgain:
 
-            if (isAlreadyInGarage)
+            try
             {
-                m_ConsoleIOMessages.VehicleIsAlreadyInGarageMessage();
+                string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
+                bool isAlreadyInGarage = m_Garage.IsVehicleAlreadyInGarage(getLicenseNumber);
+
+                if (isAlreadyInGarage)
+                {
+                    m_ConsoleIOMessages.VehicleIsAlreadyInGarageMessage(); 
+                }
+                else
+                {
+                    createNewVehicleForGarage(getLicenseNumber);
+                }
             }
-            else
+
+
+            catch(Ex03.GameLogic.ValueOutOfRangeException)
             {
-                createNewVehicleForGarage(getLicenseNumber);
+
+            }
+
+            catch(ArgumentException argumentExp)
+            {
+                Console.Write("twerew");
+            }
+            catch(Exception ex)  // lefi soogei expection
+            {
+                Console.Write(ex);
+                Thread.Sleep(1000);
+                goto tryAgain;
             }
         }
 
@@ -68,12 +96,10 @@ namespace Ex03.ConsoleUI
             initializeVehicleDetails(vehicle, i_LicenseNumber);
 
             List<string> attributes = vehicle.InitializeAttrubuteList();
-
-
             Dictionary<string, string> getAttributes = getInfoFromUserRegadingVehicle(attributes);
-            vehicle.InitializeAttributesOfVehicle(getAttributes);
 
-            m_Garage.PutNewVehicleInGarage(vehicle);
+            vehicle.InitializeAttributesOfVehicle(getAttributes);
+            m_Garage.PutNewVehicleInGarage(vehicle);          
         }
 
         private Dictionary<string, string> getInfoFromUserRegadingVehicle(List<string> i_Atttibutes)
@@ -93,6 +119,7 @@ namespace Ex03.ConsoleUI
         {
             string getOwnerName = m_ConsoleIOMessages.GetOwnerName();
             string getOwnerPhoneNumber = m_ConsoleIOMessages.GetOwnerPhoneNumber();
+
             i_Vehicle.UpdateOwnerDetails(getOwnerName, getOwnerPhoneNumber);
             i_Vehicle.LicenseNumber = i_LicenseNumber;
             i_Vehicle.EnergyPercentage = float.Parse(m_ConsoleIOMessages.GetEnergyPercentage());
@@ -101,75 +128,136 @@ namespace Ex03.ConsoleUI
 
         private void displayVehiclesInGarageDetails()
         {
-            List<string> getGarageDetails = null;
-            bool isRequestedToSort = m_ConsoleIOMessages.AskIfUserWantToSortVehicleByRepairStatus();
+            tryAgain:
 
-            if (isRequestedToSort)
+            try
             {
-                int sortByRepairStatus = m_ConsoleIOMessages.GetRepairStatus();
+                List<string> getGarageDetails = null;
+                bool isRequestedToSort = m_ConsoleIOMessages.AskIfUserWantToSortVehicleByRepairStatus();
 
-                getGarageDetails = m_Garage.SortVehiclesByRepairStatus(sortByRepairStatus);
+                if (isRequestedToSort)
+                {
+                    int sortByRepairStatus = m_ConsoleIOMessages.GetRepairStatus();
+
+                    getGarageDetails = m_Garage.SortVehiclesByRepairStatus(sortByRepairStatus);
+                }
+                else
+                {
+                    getGarageDetails = m_Garage.ListOfVehicleLicenseNumbers;
+                }
+
+                m_ConsoleIOMessages.DisplayVehiclesInGarage(getGarageDetails);
             }
-            else
+            catch(Exception ex)
             {
-                getGarageDetails = m_Garage.ListOfVehicleLicenseNumbers;
+                Console.Write(ex);
+                Thread.Sleep(1000);
+                goto tryAgain;
             }
-
-            m_ConsoleIOMessages.DisplayVehiclesInGarage(getGarageDetails);
         }
 
         private void changeVehicleRepairStatus()
         {
-            string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
-            int getRepairChoise = m_ConsoleIOMessages.GetRepairStatus();
+            tryAgain:
 
-            switch (getRepairChoise)
+            try
             {
-                case 1:
-                    m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Enums.ERepairStatus.UnderRepair;
-                    break;
-                case 2:
-                    m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Enums.ERepairStatus.RepairedNotPayed;
-                    break;
-                case 3:
-                    m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Enums.ERepairStatus.RepairedAndPayed;
-                    break;
-                default:
-                    //ERROR
-                    break;
+                string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
+                int getRepairChoise = m_ConsoleIOMessages.GetRepairStatus();
+
+                switch (getRepairChoise)
+                {
+                    case 1:
+                        m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Enums.ERepairStatus.UnderRepair;
+                        break;
+                    case 2:
+                        m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Enums.ERepairStatus.RepairedNotPayed;
+                        break;
+                    case 3:
+                        m_Garage.VehiclesInGarage[getLicenseNumber].RepairStatus = Enums.ERepairStatus.RepairedAndPayed;
+                        break;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex);
+                Thread.Sleep(1000);
+                goto tryAgain;
             }
         }
 
         private void inflatingWheel()
         {
-            string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
+            tryAgain:
 
-            m_Garage.InflateVehicleWheels(getLicenseNumber);
+            try
+            {
+                string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
+
+                m_Garage.InflateVehicleWheels(getLicenseNumber);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                Thread.Sleep(1000);
+                goto tryAgain;
+            }
         }
 
         private void fuelVehicle()
         {
-            string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
-            string getFuelType = m_ConsoleIOMessages.GetFuelType();
-            string getAmountOfFuel = m_ConsoleIOMessages.GetFuelAmount();
+            tryAgain:
 
-            m_Garage.FuelVehicle(getLicenseNumber, getFuelType, getAmountOfFuel);
+            try
+            {
+                string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
+                string getFuelType = m_ConsoleIOMessages.GetFuelType();
+                string getAmountOfFuel = m_ConsoleIOMessages.GetFuelAmount();
+
+                m_Garage.FuelVehicle(getLicenseNumber, getFuelType, getAmountOfFuel);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                Thread.Sleep(1000);
+                goto tryAgain;
+            }
         }
 
         private void chargeElectricVehicle()
         {
-            string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
-            string getAmountOfTimel = m_ConsoleIOMessages.GetAmountOfTimeToCharge();
+            tryAgain:
 
-            m_Garage.ChargeElectricVehicle(getLicenseNumber, getAmountOfTimel);
+            try { 
+                string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
+                string getAmountOfTimel = m_ConsoleIOMessages.GetAmountOfTimeToCharge();
+
+                m_Garage.ChargeElectricVehicle(getLicenseNumber, getAmountOfTimel);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                Thread.Sleep(1000);
+                goto tryAgain;
+            }
         }
 
         private void displayFullDetailsOfVehicle()
         {
-            string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
-            Dictionary<string, string> details = m_Garage.DisplayVehicleDetails(getLicenseNumber);
+            tryAgain:
 
-            m_ConsoleIOMessages.DisplayVehicleDetails(details);
+            try { 
+                string getLicenseNumber = m_ConsoleIOMessages.GetLicenseNumber();
+                Dictionary<string, string> details = m_Garage.DisplayVehicleDetails(getLicenseNumber);
+
+                m_ConsoleIOMessages.DisplayVehicleDetails(details);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                Thread.Sleep(1000);
+                goto tryAgain;
+            }
         }
     }
 }

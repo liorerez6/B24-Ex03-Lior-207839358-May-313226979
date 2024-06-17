@@ -4,14 +4,14 @@ namespace Ex03.GameLogic
 {
     public class Enums
     {
-        //public enum EVehicleTypes
-        //{
-        //    FuelCar,
-        //    ElectricCar,
-        //    FuelMotorcycle,
-        //    ElectricMotorcycle,
-        //    Truck
-        //}
+        public enum EVehicleTypes
+        {
+            FuelCar,
+            ElectricCar,
+            FuelMotorcycle,
+            ElectricMotorcycle,
+            Truck
+        }
 
         public enum ETypeOfFuel
         {

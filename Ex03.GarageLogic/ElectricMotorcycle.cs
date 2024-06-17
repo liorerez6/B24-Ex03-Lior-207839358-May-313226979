@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Ex03.GameLogic
 {
     internal class ElectricMotorcycle : Vehicle
@@ -25,7 +26,7 @@ namespace Ex03.GameLogic
 
             m_License = (Enums.ETypeOfMotorcycleLicense)Enum.Parse(typeof(Enums.ETypeOfMotorcycleLicense), i_GetAttributes["License type"]);
             m_VolumeOfEngine = int.Parse(i_GetAttributes["Engine Volume"]);
-            m_BatteryTimeLeft = int.Parse(i_GetAttributes["Battery time left"]);
+            m_BatteryTimeLeft = int.Parse(i_GetAttributes["Battery time left"]);                      
         }
 
         public override void FuelVehicle(string i_FuelType, string i_FualAmount)
